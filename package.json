@@ -1,12 +1,20 @@
 {
-  "name": "git-change-lists",
-  "displayName": "Git Change Lists",
-  "description": "JetBrains-style Change Lists for VS Code - organize your changes into named lists for focused commits",
+  "name": "git-changelist-manager",
+  "displayName": "Git Changelist Manager",
+  "description": "JetBrains-style changelist management for VS Code — organize changes into named lists for focused commits",
   "icon": "static/icon.png",
-  "version": "1.0.0",
-  "publisher": "maxie-homrich",
+  "version": "1.1.0",
+  "publisher": "Hudson-TR",
+  "author": {
+    "name": "Hudson Trombeta Ribeiro",
+    "email": "hudson_trombeta@outlook.com"
+  },
+  "homepage": "https://github.com/Hudson-TR/Git-Changelist-Manager#readme",
+  "bugs": {
+    "url": "https://github.com/Hudson-TR/Git-Changelist-Manager/issues"
+  },
   "engines": {
-    "vscode": "^1.103.0"
+    "vscode": "^1.125.0"
   },
   "categories": [
     "SCM Providers",
@@ -27,243 +35,243 @@
     "views": {
       "scm": [
         {
-          "id": "gitChangeLists.changeLists",
-          "name": "Change Lists",
+          "id": "gitChangelistManager.changelists",
+          "name": "Changelists",
           "when": "gitOpenRepositoryCount > 0",
-          "contextualTitle": "Git Change Lists"
+          "contextualTitle": "Git Changelist Manager"
         }
       ]
     },
     "commands": [
       {
-        "command": "gitChangeLists.createList",
-        "title": "Create Change List",
-        "category": "Git Change Lists",
+        "command": "gitChangelistManager.createList",
+        "title": "Create Changelist",
+        "category": "Git Changelist Manager",
         "icon": "$(add)"
       },
       {
-        "command": "gitChangeLists.deleteList",
-        "title": "Delete Change List",
-        "category": "Git Change Lists",
+        "command": "gitChangelistManager.deleteList",
+        "title": "Delete Changelist",
+        "category": "Git Changelist Manager",
         "icon": "$(trash)"
       },
       {
-        "command": "gitChangeLists.renameList",
-        "title": "Rename Change List",
-        "category": "Git Change Lists",
+        "command": "gitChangelistManager.renameList",
+        "title": "Rename Changelist",
+        "category": "Git Changelist Manager",
         "icon": "$(edit)"
       },
       {
-        "command": "gitChangeLists.setActiveList",
-        "title": "Set as Active Change List",
-        "category": "Git Change Lists",
+        "command": "gitChangelistManager.setActiveList",
+        "title": "Set Active Changelist",
+        "category": "Git Changelist Manager",
         "icon": "$(check)"
       },
       {
-        "command": "gitChangeLists.moveToList",
-        "title": "Move to Change List",
-        "category": "Git Change Lists",
+        "command": "gitChangelistManager.moveToList",
+        "title": "Move to Changelist",
+        "category": "Git Changelist Manager",
         "icon": "$(move)"
       },
       {
-        "command": "gitChangeLists.commitList",
-        "title": "Commit Change List",
-        "category": "Git Change Lists",
+        "command": "gitChangelistManager.commitList",
+        "title": "Commit Changelist",
+        "category": "Git Changelist Manager",
         "icon": "$(git-commit)"
       },
       {
-        "command": "gitChangeLists.stageList",
-        "title": "Stage Change List",
-        "category": "Git Change Lists",
+        "command": "gitChangelistManager.stageList",
+        "title": "Stage Changelist",
+        "category": "Git Changelist Manager",
         "icon": "$(diff-added)"
       },
       {
-        "command": "gitChangeLists.toggleViewMode",
+        "command": "gitChangelistManager.toggleViewMode",
         "title": "Toggle List/Tree View",
-        "category": "Git Change Lists",
+        "category": "Git Changelist Manager",
         "icon": "$(list-tree)"
       },
       {
-        "command": "gitChangeLists.applyPatch",
-        "title": "Apply Patch to Change List",
-        "category": "Git Change Lists",
+        "command": "gitChangelistManager.applyPatch",
+        "title": "Apply Patch to Changelist",
+        "category": "Git Changelist Manager",
         "icon": "$(diff)"
       },
       {
-        "command": "gitChangeLists.createPatch",
-        "title": "Create Patch from Change List",
-        "category": "Git Change Lists",
+        "command": "gitChangelistManager.createPatch",
+        "title": "Create Patch from Changelist",
+        "category": "Git Changelist Manager",
         "icon": "$(export)"
       },
       {
-        "command": "gitChangeLists.refresh",
-        "title": "Refresh Change Lists",
-        "category": "Git Change Lists",
+        "command": "gitChangelistManager.refresh",
+        "title": "Refresh Changelists",
+        "category": "Git Changelist Manager",
         "icon": "$(refresh)"
       },
       {
-        "command": "gitChangeLists.guardedCommit",
+        "command": "gitChangelistManager.guardedCommit",
         "title": "Commit (with Guard)",
-        "category": "Git Change Lists",
+        "category": "Git Changelist Manager",
         "icon": "$(git-commit)"
       },
       {
-        "command": "gitChangeLists.setListColor",
-        "title": "Set Change List Color",
-        "category": "Git Change Lists",
+        "command": "gitChangelistManager.setListColor",
+        "title": "Set Changelist Color",
+        "category": "Git Changelist Manager",
         "icon": "$(paintcan)"
       }
     ],
     "menus": {
       "view/title": [
         {
-          "command": "gitChangeLists.createList",
-          "when": "view == gitChangeLists.changeLists",
+          "command": "gitChangelistManager.createList",
+          "when": "view == gitChangelistManager.changelists",
           "group": "navigation@1"
         },
         {
-          "command": "gitChangeLists.toggleViewMode",
-          "when": "view == gitChangeLists.changeLists",
+          "command": "gitChangelistManager.toggleViewMode",
+          "when": "view == gitChangelistManager.changelists",
           "group": "navigation@2"
         },
         {
-          "command": "gitChangeLists.refresh",
-          "when": "view == gitChangeLists.changeLists",
+          "command": "gitChangelistManager.refresh",
+          "when": "view == gitChangelistManager.changelists",
           "group": "navigation@3"
         }
       ],
       "view/item/context": [
         {
-          "command": "gitChangeLists.setActiveList",
-          "when": "view == gitChangeLists.changeLists && viewItem =~ /^changeList/ && viewItem != changeListActive && viewItem != changeListReadOnly",
+          "command": "gitChangelistManager.setActiveList",
+          "when": "view == gitChangelistManager.changelists && viewItem =~ /^changeList/ && viewItem != changeListActive && viewItem != changeListReadOnly",
           "group": "1_state@1"
         },
         {
-          "command": "gitChangeLists.stageList",
-          "when": "view == gitChangeLists.changeLists && viewItem =~ /^changeList/",
+          "command": "gitChangelistManager.stageList",
+          "when": "view == gitChangelistManager.changelists && viewItem =~ /^changeList/",
           "group": "2_actions@1"
         },
         {
-          "command": "gitChangeLists.commitList",
-          "when": "view == gitChangeLists.changeLists && viewItem =~ /^changeList/",
+          "command": "gitChangelistManager.commitList",
+          "when": "view == gitChangelistManager.changelists && viewItem =~ /^changeList/",
           "group": "2_actions@2"
         },
         {
-          "command": "gitChangeLists.applyPatch",
-          "when": "view == gitChangeLists.changeLists && viewItem =~ /^changeList/",
+          "command": "gitChangelistManager.applyPatch",
+          "when": "view == gitChangelistManager.changelists && viewItem =~ /^changeList/",
           "group": "2_actions@3"
         },
         {
-          "command": "gitChangeLists.createPatch",
-          "when": "view == gitChangeLists.changeLists && viewItem =~ /^changeList/",
+          "command": "gitChangelistManager.createPatch",
+          "when": "view == gitChangelistManager.changelists && viewItem =~ /^changeList/",
           "group": "2_actions@4"
         },
         {
-          "command": "gitChangeLists.renameList",
-          "when": "view == gitChangeLists.changeLists && viewItem =~ /^changeList/ && viewItem != changeListReadOnly",
+          "command": "gitChangelistManager.renameList",
+          "when": "view == gitChangelistManager.changelists && viewItem =~ /^changeList/ && viewItem != changeListReadOnly",
           "group": "3_edit@1"
         },
         {
-          "command": "gitChangeLists.setListColor",
-          "when": "view == gitChangeLists.changeLists && viewItem =~ /^changeList/ && viewItem != changeListReadOnly",
+          "command": "gitChangelistManager.setListColor",
+          "when": "view == gitChangelistManager.changelists && viewItem =~ /^changeList/ && viewItem != changeListReadOnly",
           "group": "3_edit@2"
         },
         {
-          "command": "gitChangeLists.deleteList",
-          "when": "view == gitChangeLists.changeLists && viewItem =~ /^changeList/ && viewItem != changeListDefault && viewItem != changeListReadOnly",
+          "command": "gitChangelistManager.deleteList",
+          "when": "view == gitChangelistManager.changelists && viewItem =~ /^changeList/ && viewItem != changeListDefault && viewItem != changeListReadOnly",
           "group": "3_edit@2"
         },
         {
-          "command": "gitChangeLists.moveToList",
-          "when": "view == gitChangeLists.changeLists && viewItem == changeListFile",
+          "command": "gitChangelistManager.moveToList",
+          "when": "view == gitChangelistManager.changelists && viewItem == changeListFile",
           "group": "1_move@1"
         }
       ],
       "commandPalette": [
         {
-          "command": "gitChangeLists.deleteList",
+          "command": "gitChangelistManager.deleteList",
           "when": "false"
         },
         {
-          "command": "gitChangeLists.renameList",
+          "command": "gitChangelistManager.renameList",
           "when": "false"
         },
         {
-          "command": "gitChangeLists.commitList",
+          "command": "gitChangelistManager.commitList",
           "when": "false"
         },
         {
-          "command": "gitChangeLists.stageList",
+          "command": "gitChangelistManager.stageList",
           "when": "false"
         },
         {
-          "command": "gitChangeLists.createPatch",
+          "command": "gitChangelistManager.createPatch",
           "when": "false"
         }
       ]
     },
     "keybindings": [
       {
-        "command": "gitChangeLists.setActiveList",
+        "command": "gitChangelistManager.setActiveList",
         "key": "ctrl+shift+l",
         "mac": "cmd+shift+l",
-        "when": "view == gitChangeLists.changeLists"
+        "when": "view == gitChangelistManager.changelists"
       },
       {
-        "command": "gitChangeLists.moveToList",
+        "command": "gitChangelistManager.moveToList",
         "key": "alt+shift+m",
-        "when": "view == gitChangeLists.changeLists && viewItem == changeListFile"
+        "when": "view == gitChangelistManager.changelists && viewItem == changeListFile"
       },
       {
-        "command": "gitChangeLists.guardedCommit",
+        "command": "gitChangelistManager.guardedCommit",
         "key": "ctrl+enter",
         "mac": "cmd+enter",
-        "when": "scmRepository && config.gitChangeLists.commitGuard.interceptCommit && scmInputIsFocused"
+        "when": "scmRepository && config.gitChangelistManager.commitGuard.interceptCommit && scmInputIsFocused"
       }
     ],
     "configuration": {
-      "title": "Git Change Lists",
+      "title": "Git Changelist Manager",
       "properties": {
-        "gitChangeLists.defaultViewMode": {
+        "gitChangelistManager.defaultViewMode": {
           "type": "string",
           "enum": [
             "list",
             "tree"
           ],
           "default": "list",
-          "description": "Default view mode for displaying files in change lists"
+          "description": "Default view mode for displaying files in changelists"
         },
-        "gitChangeLists.showStatusBar": {
+        "gitChangelistManager.showStatusBar": {
           "type": "boolean",
           "default": true,
-          "description": "Show the active change list in the status bar"
+          "description": "Show the active changelist in the status bar"
         },
-        "gitChangeLists.confirmDeleteNonEmpty": {
+        "gitChangelistManager.confirmDeleteNonEmpty": {
           "type": "boolean",
           "default": true,
-          "description": "Ask for confirmation before deleting a non-empty change list"
+          "description": "Ask for confirmation before deleting a non-empty changelist"
         },
-        "gitChangeLists.autoActivateNew": {
+        "gitChangelistManager.autoActivateNew": {
           "type": "boolean",
           "default": true,
-          "description": "Automatically set newly created change lists as active"
+          "description": "Automatically set newly created changelists as active"
         },
-        "gitChangeLists.commitGuard.enabled": {
+        "gitChangelistManager.commitGuard.enabled": {
           "type": "boolean",
           "default": true,
-          "description": "Warn when attempting to commit files from multiple change lists"
+          "description": "Warn when attempting to commit files from multiple changelists"
         },
-        "gitChangeLists.commitGuard.interceptCommit": {
+        "gitChangelistManager.commitGuard.interceptCommit": {
           "type": "boolean",
           "default": false,
           "description": "Intercept the native Git commit command to apply the commit guard (requires restart)"
         },
-        "gitChangeLists.autoAssignStagedFiles": {
+        "gitChangelistManager.autoAssignStagedFiles": {
           "type": "boolean",
           "default": true,
-          "description": "Automatically assign externally staged files to the active change list"
+          "description": "Automatically assign externally staged files to the active changelist"
         },
-        "gitChangeLists.debug.enableLogging": {
+        "gitChangelistManager.debug.enableLogging": {
           "type": "boolean",
           "default": false,
           "description": "Enable debug logging to the output channel (verbose)"
@@ -272,27 +280,22 @@
     }
   },
   "scripts": {
-    "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
     "lint": "eslint src --ext ts",
-    "package": "vsce package",
-    "publish": "vsce publish"
+    "package": "pnpm run compile && pnpm exec vsce package --no-dependencies",
+    "publish": "pnpm run compile && pnpm exec vsce publish"
   },
+  "packageManager": "pnpm@10.33.3",
   "devDependencies": {
-    "@types/node": "^20.x",
-    "@types/uuid": "^10.0.0",
-    "@types/vscode": "^1.74.0",
-    "@vscode/vsce": "^2.x",
-    "typescript": "^5.x"
-  },
-  "dependencies": {
-    "simple-git": "^3.x",
-    "uuid": "^9.x"
+    "@types/node": "^26.0.0",
+    "@types/vscode": "^1.125.0",
+    "@vscode/vsce": "^3.9.2",
+    "typescript": "^6.0.3"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/maxinne-dev/vscode-git-change-lists"
+    "url": "https://github.com/Hudson-TR/Git-Changelist-Manager"
   },
   "license": "AGPL-3.0-only"
 }

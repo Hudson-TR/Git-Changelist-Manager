@@ -9,7 +9,7 @@ export class Logger {
   private isDebugEnabled = false;
 
   private constructor() {
-    this.outputChannel = vscode.window.createOutputChannel('Git Change Lists');
+    this.outputChannel = vscode.window.createOutputChannel('Git Changelist Manager');
   }
 
   static getInstance(): Logger {

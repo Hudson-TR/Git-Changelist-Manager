@@ -1,0 +1,18 @@
+Git Changelist Manager — Fork Notice
+=====================================
+
+Original work
+  Copyright (C) maxie-homrich / maxinne-dev
+  https://github.com/maxinne-dev/vscode-git-change-lists
+
+This fork
+  Copyright (C) 2026 Hudson Trombeta Ribeiro
+  https://github.com/Hudson-TR/Git-Changelist-Manager
+
+This project is a fork of Git Change Lists. The original project and this
+fork are licensed under the GNU Affero General Public License v3.0
+(AGPL-3.0-only). See the LICENSE file for the full license text.
+
+When distributing this software, you must preserve this notice, the LICENSE
+file, and provide access to the corresponding source code as required by
+the AGPL.

@@ -1,21 +1,20 @@
-![Git Change Lists Cover](static/cover.png)
+![Git Changelist Manager Cover](static/cover.png)
 
-# Git Change Lists
+# Git Changelist Manager
 
-> JetBrains-style Change Lists for VS Code and compatible editors
+> JetBrains-style changelist management for VS Code and compatible editors
 
-**Git Change Lists** brings the powerful change list management from JetBrains IDEs (IntelliJ IDEA, WebStorm, PHPStorm, etc.) to Visual Studio Code, Cursor, Kiro, Windsurf, Trae, VSCodium, and Google Antigravity. Organize your uncommitted changes into named lists, work on multiple features in parallel, and commit only related changes together.
+**Git Changelist Manager** brings JetBrains-style changelist management to Visual Studio Code, Cursor, and other VS Code–compatible editors. Organize uncommitted changes into named lists, work on multiple features in parallel, and commit only related changes together.
 
-[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/maxinne-dev/vscode-git-change-lists)
+[![Version](https://img.shields.io/badge/version-1.1.0-blue.svg)](https://github.com/Hudson-TR/Git-Changelist-Manager)
 [![License](https://img.shields.io/badge/license-AGPL--3.0-blue.svg)](LICENSE)
-[![GitHub Stars](https://img.shields.io/github/stars/maxinne-dev/vscode-git-change-lists.svg)](https://github.com/maxinne-dev/vscode-git-change-lists/stargazers)
 
 ---
 
 ## Table of Contents
 
 - [Overview](#overview)
-- [Why Use Git Change Lists?](#why-use-git-change-lists)
+- [Why Use Git Changelist Manager?](#why-use-git-changelist-manager)
 - [Installation](#installation)
 - [Quick Start](#quick-start)
 - [Core Features](#core-features)
@@ -32,7 +31,7 @@
 
 ## Overview
 
-Git Change Lists transforms how you organize Git changes by introducing **change lists**—named containers that group related files together. Instead of VS Code's simple staged/unstaged binary model, you can maintain multiple logical groupings of changes simultaneously, just like in JetBrains IDEs.
+Git Changelist Manager transforms how you organize Git changes by introducing **change lists**—named containers that group related files together. Instead of VS Code's simple staged/unstaged binary model, you can maintain multiple logical groupings of changes simultaneously, just like in JetBrains IDEs.
 
 ### Key Features
 
@@ -48,7 +47,7 @@ Git Change Lists transforms how you organize Git changes by introducing **change
 
 ---
 
-## Why Use Git Change Lists?
+## Why Use Git Changelist Manager?
 
 ### The Problem
 
@@ -69,7 +68,7 @@ Change lists let you:
 
 ### Coming from JetBrains IDEs?
 
-If you're a WebStorm, IntelliJ IDEA, or PHPStorm user who's had to switch to VS Code, you've probably missed the change lists feature. Git Change Lists brings that familiar workflow to your editor, with:
+If you're a WebStorm, IntelliJ IDEA, or PHPStorm user who's had to switch to VS Code, you've probably missed the change lists feature. Git Changelist Manager brings that familiar workflow to your editor, with:
 
 - Similar UI patterns (drag-and-drop, context menus)
 - Active list concept with auto-assignment
@@ -80,21 +79,31 @@ If you're a WebStorm, IntelliJ IDEA, or PHPStorm user who's had to switch to VS 
 
 ## Installation
 
-### 1. From VS Code Marketplace
+### 1. From VS Code Marketplace / Open VSX
+
+> This extension is published by `Hudson-TR`. Search for **Git Changelist Manager**.
+
 1. Open VS Code, Cursor, Kiro, Windsurf, Trae, VSCodium, or Antigravity.
-2. Search for **Git Change Lists** in the Extensions view (`Ctrl+Shift+X`).
+2. Search for **Git Changelist Manager** in the Extensions view (`Ctrl+Shift+X`).
 3. Click **Install**.
 
 ### 2. From VSIX File
-1. Download the latest `.vsix` file from [Releases](https://github.com/maxinne-dev/vscode-git-change-lists/releases).
+
+1. Download or build the latest `.vsix` from [Releases](https://github.com/Hudson-TR/Git-Changelist-Manager/releases) or run `pnpm run package` locally.
 2. Open the Command Palette (`Ctrl+Shift+P`) and run `Extensions: Install from VSIX...`.
 3. Select the downloaded file.
+
+Or via CLI:
+
+```bash
+cursor --install-extension git-changelist-manager-1.1.0.vsix
+```
 
 ### Verification
 
 After installation:
 1. Open a Git repository
-2. Look for the **Change Lists** view in the Source Control panel (SCM)
+2. Look for the **Changelists** view in the Source Control panel (SCM)
 3. The default change list should appear with your uncommitted changes
 
 For detailed installation instructions for specific editors, see [docs/INSTALLATION.md](docs/INSTALLATION.md).
@@ -105,29 +114,29 @@ For detailed installation instructions for specific editors, see [docs/INSTALLAT
 
 ### 1. Open a Git Repository
 
-Git Change Lists activates automatically when a Git repository is detected.
+Git Changelist Manager activates automatically when a Git repository is detected.
 
 ### 2. Create Your First Change List
 
-- Click the **+** icon in the Change Lists view header, or
-- Open Command Palette (`Ctrl+Shift+P`) and run `Git Change Lists: Create Change List`
+- Click the **+** icon in the Changelists view header, or
+- Open Command Palette (`Ctrl+Shift+P`) and run `Git Changelist Manager: Create Changelist`
 - Enter a name like "Feature: User Authentication"
 
 ### 3. Move Files to Your List
 
 - **Drag and drop** files from the "Default" list to your new list, or
-- Right-click a file → **Move to Change List** → Select your list
+- Right-click a file → **Move to Changelist** → Select your list
 
 ### 4. Set Your List as Active
 
-- Right-click your list → **Set as Active Change List**, or
+- Right-click your list → **Set Active Changelist**, or
 - Press `Ctrl+Shift+L` (or `Cmd+Shift+L`) and select your list
 
 Now any new changes will automatically appear in your active list!
 
 ### 5. Stage and Commit
 
-- Right-click your list → **Stage Change List**
+- Right-click your list → **Stage Changelist**
 - Write your commit message in the SCM input box
 - Press `Ctrl+Enter` (or `Cmd+Enter`) to commit with the guard, or click the commit button
 
@@ -143,13 +152,13 @@ The committed files are automatically removed from your change list.
 
 Create named containers to organize your changes:
 - Click the **+** icon in the view header
-- Use Command Palette: `Git Change Lists: Create Change List`
+- Use Command Palette: `Git Changelist Manager: Create Changelist`
 - Enter a descriptive name (e.g., "Feature X", "Bugfix: Login", "Refactor DB")
 
 #### Active List
 
 The **active change list** automatically receives newly detected changes:
-- Set any list as active via right-click → **Set as Active Change List**
+- Set any list as active via right-click → **Set Active Changelist**
 - Keybinding: `Ctrl+Shift+L` / `Cmd+Shift+L`
 - Active list is marked with a checkmark and shown in the status bar
 - Only one list can be active at a time
@@ -163,9 +172,9 @@ The **Default** list is special:
 
 #### List Operations
 
-- **Rename**: Right-click → **Rename Change List**
-- **Delete**: Right-click → **Delete Change List** (requires confirmation if non-empty)
-- **Stage All**: Right-click → **Stage Change List** (stages all files in the list)
+- **Rename**: Right-click → **Rename Changelist**
+- **Delete**: Right-click → **Delete Changelist** (requires confirmation if non-empty)
+- **Stage All**: Right-click → **Stage Changelist** (stages all files in the list)
 
 ### File Organization
 
@@ -178,7 +187,7 @@ Move files between change lists by dragging:
 
 #### Context Menu
 
-Right-click a file → **Move to Change List**:
+Right-click a file → **Move to Changelist**:
 - See all available lists
 - Select destination or create a new list inline
 
@@ -204,13 +213,13 @@ Hierarchical view preserving project structure:
 - Shows directory organization
 - Collapsible folders with badges showing child counts
 
-**Toggle**: Click the tree/list icon in the view header, or use `Git Change Lists: Toggle List/Tree View`
+**Toggle**: Click the tree/list icon in the view header, or use `Git Changelist Manager: Toggle List/Tree View`
 
 View mode and expansion state persist across sessions.
 
 ### Git Integration
 
-Git Change Lists extends VS Code's Git integration without replacing it:
+Git Changelist Manager extends VS Code's Git integration without replacing it:
 
 #### Real-Time Synchronization
 
@@ -220,7 +229,7 @@ Git Change Lists extends VS Code's Git integration without replacing it:
 
 #### Staging Workflow
 
-1. Right-click a change list → **Stage Change List**
+1. Right-click a change list → **Stage Changelist**
 2. All files in the list are staged
 3. Use VS Code's standard commit UI (compatible with commit message extensions)
 4. After commit, files are automatically removed from change lists
@@ -248,7 +257,7 @@ When `commitGuard.enabled` is true (default):
 #### Using the Guard
 
 - **Via Keybinding**: `Ctrl+Enter` / `Cmd+Enter` in the SCM input box (if `commitGuard.interceptCommit` is enabled)
-- **Via Command**: `Git Change Lists: Commit (with Guard)`
+- **Via Command**: `Git Changelist Manager: Commit (with Guard)`
 
 **Note**: The guard cannot intercept the native commit button click due to VS Code API limitations. Use the keybinding for guarded commits.
 
@@ -259,11 +268,11 @@ The status bar shows:
 - Full name in tooltip on hover
 - Click to quickly switch active lists
 
-Toggle visibility with `gitChangeLists.showStatusBar` setting.
+Toggle visibility with `gitChangelistManager.showStatusBar` setting.
 
 ### Multi-Root Workspace Support
 
-Git Change Lists works with multi-root workspaces:
+Git Changelist Manager works with multi-root workspaces:
 - Each workspace folder has independent change lists
 - State is isolated per repository
 - Seamless switching between folders
@@ -276,15 +285,15 @@ Git Change Lists works with multi-root workspaces:
 
 | Command | ID | Description | Default Keybinding |
 |---------|-----|-------------|-------------------|
-| Create Change List | `gitChangeLists.createList` | Create a new named change list | — |
-| Set as Active Change List | `gitChangeLists.setActiveList` | Mark a list as active for auto-assignment | `Ctrl+Shift+L` / `Cmd+Shift+L` |
-| Move to Change List | `gitChangeLists.moveToList` | Move selected file(s) to another list | `Alt+Shift+M` |
-| Rename Change List | `gitChangeLists.renameList` | Rename a change list | — |
-| Delete Change List | `gitChangeLists.deleteList` | Delete a change list (with confirmation) | — |
-| Stage Change List | `gitChangeLists.stageList` | Stage all files in a change list | — |
-| Toggle List/Tree View | `gitChangeLists.toggleViewMode` | Switch between flat and hierarchical views | — |
-| Commit (with Guard) | `gitChangeLists.guardedCommit` | Commit with validation of staged files | `Ctrl+Enter` / `Cmd+Enter` (in SCM input) |
-| Refresh Change Lists | `gitChangeLists.refresh` | Manually refresh the view | — |
+| Create Changelist | `gitChangelistManager.createList` | Create a new named change list | — |
+| Set Active Changelist | `gitChangelistManager.setActiveList` | Mark a list as active for auto-assignment | `Ctrl+Shift+L` / `Cmd+Shift+L` |
+| Move to Changelist | `gitChangelistManager.moveToList` | Move selected file(s) to another list | `Alt+Shift+M` |
+| Rename Changelist | `gitChangelistManager.renameList` | Rename a change list | — |
+| Delete Changelist | `gitChangelistManager.deleteList` | Delete a change list (with confirmation) | — |
+| Stage Changelist | `gitChangelistManager.stageList` | Stage all files in a change list | — |
+| Toggle List/Tree View | `gitChangelistManager.toggleViewMode` | Switch between flat and hierarchical views | — |
+| Commit (with Guard) | `gitChangelistManager.guardedCommit` | Commit with validation of staged files | `Ctrl+Enter` / `Cmd+Enter` (in SCM input) |
+| Refresh Changelists | `gitChangelistManager.refresh` | Manually refresh the view | — |
 
 ### Customizing Keybindings
 
@@ -293,8 +302,8 @@ Modify keybindings in **File → Preferences → Keyboard Shortcuts** or edit `k
 ```json
 {
   "key": "ctrl+shift+l",
-  "command": "gitChangeLists.setActiveList",
-  "when": "view == gitChangeLists.changeLists"
+  "command": "gitChangelistManager.setActiveList",
+  "when": "view == gitChangelistManager.changelists"
 }
 ```
 
@@ -302,31 +311,31 @@ Modify keybindings in **File → Preferences → Keyboard Shortcuts** or edit `k
 
 ## Configuration
 
-Git Change Lists can be configured via **File → Preferences → Settings** or `settings.json`.
+Git Changelist Manager can be configured via **File → Preferences → Settings** or `settings.json`.
 
 ### Available Settings
 
 | Setting | Type | Default | Description |
 |---------|------|---------|-------------|
-| `gitChangeLists.defaultViewMode` | `"list"` `"tree"` | `"list"` | Default view mode for displaying files |
-| `gitChangeLists.showStatusBar` | `boolean` | `true` | Show the active change list in the status bar |
-| `gitChangeLists.confirmDeleteNonEmpty` | `boolean` | `true` | Ask for confirmation before deleting non-empty lists |
-| `gitChangeLists.autoActivateNew` | `boolean` | `true` | Automatically set newly created lists as active |
-| `gitChangeLists.commitGuard.enabled` | `boolean` | `true` | Warn when committing files from multiple lists |
-| `gitChangeLists.commitGuard.interceptCommit` | `boolean` | `false` | Intercept native commit command (requires restart) |
-| `gitChangeLists.autoAssignStagedFiles` | `boolean` | `true` | Auto-assign externally staged files to active list |
-| `gitChangeLists.debug.enableLogging` | `boolean` | `false` | Enable verbose debug logging to output channel |
+| `gitChangelistManager.defaultViewMode` | `"list"` `"tree"` | `"list"` | Default view mode for displaying files |
+| `gitChangelistManager.showStatusBar` | `boolean` | `true` | Show the active change list in the status bar |
+| `gitChangelistManager.confirmDeleteNonEmpty` | `boolean` | `true` | Ask for confirmation before deleting non-empty lists |
+| `gitChangelistManager.autoActivateNew` | `boolean` | `true` | Automatically set newly created lists as active |
+| `gitChangelistManager.commitGuard.enabled` | `boolean` | `true` | Warn when committing files from multiple lists |
+| `gitChangelistManager.commitGuard.interceptCommit` | `boolean` | `false` | Intercept native commit command (requires restart) |
+| `gitChangelistManager.autoAssignStagedFiles` | `boolean` | `true` | Auto-assign externally staged files to active list |
+| `gitChangelistManager.debug.enableLogging` | `boolean` | `false` | Enable verbose debug logging to output channel |
 
 ### Example Configuration
 
 ```json
 {
-  "gitChangeLists.defaultViewMode": "tree",
-  "gitChangeLists.showStatusBar": true,
-  "gitChangeLists.autoActivateNew": true,
-  "gitChangeLists.commitGuard.enabled": true,
-  "gitChangeLists.autoAssignStagedFiles": true,
-  "gitChangeLists.debug.enableLogging": false
+  "gitChangelistManager.defaultViewMode": "tree",
+  "gitChangelistManager.showStatusBar": true,
+  "gitChangelistManager.autoActivateNew": true,
+  "gitChangelistManager.commitGuard.enabled": true,
+  "gitChangelistManager.autoAssignStagedFiles": true,
+  "gitChangelistManager.debug.enableLogging": false
 }
 ```
 
@@ -394,7 +403,7 @@ Combine with traditional Git workflows:
 
 ## Roadmap
 
-Git Change Lists is actively developed. Here's what's planned for future releases:
+Git Changelist Manager is actively developed. Here's what's planned for future releases:
 
 ### Version 1.0.0 (In Progress)
 
@@ -458,11 +467,11 @@ Comprehensive documentation is available in the `/docs` directory:
 
 ## Contributing
 
-Contributions are welcome! Git Change Lists is an open-source project and benefits from community input.
+Contributions are welcome! Git Changelist Manager is an open-source project and benefits from community input.
 
 ### How to Contribute
 
-- **Report Bugs**: Open an issue on [GitHub](https://github.com/maxinne-dev/vscode-git-change-lists/issues)
+- **Report Bugs**: Open an issue on [GitHub](https://github.com/Hudson-TR/Git-Changelist-Manager/issues)
 - **Request Features**: Describe your use case in an issue
 - **Improve Documentation**: Submit PRs for typos, clarifications, or new guides
 - **Write Code**: See [CONTRIBUTING.md](docs/CONTRIBUTING.md) for development setup
@@ -470,10 +479,10 @@ Contributions are welcome! Git Change Lists is an open-source project and benefi
 ### Development Setup
 
 ```bash
-git clone https://github.com/maxinne-dev/vscode-git-change-lists.git
-cd vscode-git-change-lists
-npm install
-npm run compile
+git clone https://github.com/Hudson-TR/Git-Changelist-Manager.git
+cd Git-Changelist-Manager
+pnpm install
+pnpm run compile
 ```
 
 Press F5 in VS Code to launch the Extension Development Host.
@@ -488,13 +497,13 @@ For detailed development instructions, see [docs/DEVELOPMENT.md](docs/DEVELOPMEN
 
 - **Documentation**: Check the [docs](docs/) folder first
 - **FAQ**: See [docs/FAQ.md](docs/FAQ.md) for common questions
-- **Issues**: Search [existing issues](https://github.com/maxinne-dev/vscode-git-change-lists/issues) or open a new one
-- **Discussions**: Join [GitHub Discussions](https://github.com/maxinne-dev/vscode-git-change-lists/discussions) for community support
+- **Issues**: [GitHub Issues](https://github.com/Hudson-TR/Git-Changelist-Manager/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/Hudson-TR/Git-Changelist-Manager/discussions)
 
 ### Reporting Bugs
 
 When reporting bugs, please include:
-1. Extension version (`1.0.0`)
+1. Extension version (`1.1.0`)
 2. Editor name and version (VS Code, Cursor, etc.)
 3. Steps to reproduce the issue
 4. Expected vs actual behavior
@@ -512,7 +521,7 @@ We love hearing about new use cases! When requesting features:
 
 ## License
 
-Git Change Lists is licensed under the [GNU Affero General Public License v3.0](LICENSE).
+Licensed under [AGPL-3.0](LICENSE). Copyright and attribution details are in [NOTICE](NOTICE).
 
 ```
 This program is free software: you can redistribute it and/or modify
@@ -530,12 +539,11 @@ GNU Affero General Public License for more details.
 
 ## Acknowledgments
 
-- Inspired by JetBrains IDEs' change list feature
+- Inspired by JetBrains IDEs' changelist feature
 - Built on VS Code's Extension API
-- Thanks to all contributors and users
 
 ---
 
-Made with ✓ for developers who want better Git workflows
+Maintained by [Hudson Trombeta Ribeiro](https://github.com/Hudson-TR)
 
-[Report Bug](https://github.com/maxinne-dev/vscode-git-change-lists/issues) • [Request Feature](https://github.com/maxinne-dev/vscode-git-change-lists/issues) • [View Documentation](docs/)
+[Report Bug](https://github.com/Hudson-TR/Git-Changelist-Manager/issues) • [View Documentation](docs/)

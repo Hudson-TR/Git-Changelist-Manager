@@ -1,6 +1,6 @@
-# Debugging Smart Commit
+# Debugging Git Changelist Manager
 
-This guide explains how to use the logging features to debug the Smart Commit extension.
+This guide explains how to use the logging features to debug the Git Changelist Manager extension.
 
 ## Enabling Debug Logging
 
@@ -9,7 +9,7 @@ By default, the extension only logs INFO, WARN, and ERROR messages. To enable ve
 ### Method 1: VS Code Settings UI
 
 1. Open Settings (`Ctrl+,` or `Cmd+,`)
-2. Search for "Smart Commit"
+2. Search for "Git Changelist Manager"
 3. Check **"Debug: Enable Logging"**
 4. Restart the Extension Development Host (or reload the window)
 
@@ -19,7 +19,7 @@ Add this to your `settings.json`:
 
 ```json
 {
-  "smartCommit.debug.enableLogging": true
+  "gitChangelistManager.debug.enableLogging": true
 }
 ```
 
@@ -28,10 +28,10 @@ Add this to your `settings.json`:
 ### Open the Output Panel
 
 1. Press `Ctrl+Shift+U` (or `Cmd+Shift+U` on Mac)
-2. Select **"Smart Commit"** from the dropdown in the top-right
+2. Select **"Git Changelist Manager"** from the dropdown in the top-right
 
 Alternatively:
-- View → Output → Select "Smart Commit"
+- View → Output → Select "Git Changelist Manager"
 
 ## Log Levels
 
@@ -74,10 +74,10 @@ All of the above, plus:
 ### Normal Operation (INFO level)
 
 ```
-[2026-01-30T10:15:23.456Z] [INFO] Activating Smart Commit extension...
+[2026-01-30T10:15:23.456Z] [INFO] Activating Git Changelist Manager extension...
 [2026-01-30T10:15:23.567Z] [INFO] Git service initialized successfully
 [2026-01-30T10:15:23.678Z] [INFO] ChangeListManager: Initialized | {"listCount":2,"activeList":"Feature A"}
-[2026-01-30T10:15:23.789Z] [INFO] Smart Commit extension activated successfully!
+[2026-01-30T10:15:23.789Z] [INFO] Git Changelist Manager extension activated successfully!
 [2026-01-30T10:15:45.123Z] [EVENT] [Git] Files staged | {"count":1,"files":["src/main.ts"]}
 [2026-01-30T10:15:45.234Z] [INFO] Auto-assigned file to active list | {"file":"src/main.ts","list":"Feature A"}
 ```
@@ -85,7 +85,7 @@ All of the above, plus:
 ### Debug Mode (DEBUG level)
 
 ```
-[2026-01-30T10:15:23.456Z] [INFO] Activating Smart Commit extension...
+[2026-01-30T10:15:23.456Z] [INFO] Activating Git Changelist Manager extension...
 [2026-01-30T10:15:23.567Z] [DEBUG] Initializing Git service...
 [2026-01-30T10:15:23.578Z] [DEBUG] GitService: Looking for vscode.git extension...
 [2026-01-30T10:15:23.589Z] [DEBUG] GitService: Got Git API (version 1)
@@ -190,4 +190,4 @@ No sensitive data (passwords, secrets) is logged. However, be mindful when shari
 - [CONFIGURATION.md](CONFIGURATION.md#smartcommitdebugenablelogging) - Debug logging configuration details
 - [CONTRIBUTING.md](CONTRIBUTING.md#reporting-bugs) - Reporting issues with logs
 
-For general troubleshooting, see the [FAQ Troubleshooting section](FAQ.md#troubleshooting) or [open an issue](https://github.com/maxinne-dev/vscode-smart-commit/issues) with your debug logs attached.
+For general troubleshooting, see the [FAQ Troubleshooting section](FAQ.md#troubleshooting) or [open an issue](https://github.com/Hudson-TR/Git-Changelist-Manager/issues) with your debug logs attached.

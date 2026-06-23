@@ -21,7 +21,7 @@ export interface ValidationResult {
 export type GuardChoice = 'unstage' | 'commit' | 'cancel';
 
 /**
- * Service for guarding commits to prevent mixing change lists
+ * Service for guarding commits to prevent mixing changelists
  */
 export class CommitGuardService implements vscode.Disposable {
   private disposables: vscode.Disposable[] = [];
@@ -41,7 +41,7 @@ export class CommitGuardService implements vscode.Disposable {
     // that wraps the git.commit command
     this.disposables.push(
       vscode.commands.registerCommand(
-        'gitChangeLists.guardedCommit',
+        'gitChangelistManager.guardedCommit',
         async () => this.handleGuardedCommit()
       )
     );
@@ -74,7 +74,7 @@ export class CommitGuardService implements vscode.Disposable {
       return;
     }
 
-    logger.warn('CommitGuard: Multiple change lists detected in staged files');
+    logger.warn('CommitGuard: Multiple changelists detected in staged files');
 
     // Show guard dialog
     const choice = await this.showGuardDialog(validation);
@@ -164,7 +164,7 @@ export class CommitGuardService implements vscode.Disposable {
     }
 
     const message = [
-      'You are about to commit files from multiple change lists:',
+      'You are about to commit files from multiple changelists:',
       '',
       ...listDetails,
       '',

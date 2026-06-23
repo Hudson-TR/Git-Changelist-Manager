@@ -1,4 +1,4 @@
-# Smart Commit FAQ
+# Git Changelist Manager FAQ
 
 Frequently asked questions and troubleshooting guide.
 
@@ -81,7 +81,7 @@ Branches are for long-lived parallel work streams. Change lists are for *organiz
 
 ### Can I use this with other Git extensions?
 
-Yes! Smart Commit is designed to work alongside other Git extensions:
+Yes! Git Changelist Manager is designed to work alongside other Git extensions:
 
 **Compatible with:**
 - GitLens (full compatibility)
@@ -96,13 +96,13 @@ Yes! Smart Commit is designed to work alongside other Git extensions:
 - Tower, SourceTree, GitKraken apps
 - CI/CD systems
 
-Smart Commit *extends* Git, it doesn't replace it.
+Git Changelist Manager *extends* Git, it doesn't replace it.
 
 ---
 
 ### Does this modify my Git history or repository?
 
-**No!** Smart Commit only organizes your *uncommitted* changes. It doesn't:
+**No!** Git Changelist Manager only organizes your *uncommitted* changes. It doesn't:
 
 - ❌ Modify commit history
 - ❌ Alter `.git` directory (except standard operations like staging)
@@ -153,7 +153,7 @@ Change list organization is stored in **VS Code's workspace storage**:
 
 **2. Context Menu**
 - Right-click a file
-- Select "Move to Change List"
+- Select "Move to Changelist"
 - Choose destination
 
 **3. Multi-Select**
@@ -182,12 +182,12 @@ See [USER_GUIDE.md](USER_GUIDE.md#moving-files-between-lists) for details.
    - Solution: Enable built-in Git extension
 
 5. **Extension not activated**
-   - Solution: Check Output → Smart Commit for errors
+   - Solution: Check Output → Git Changelist Manager for errors
 
 **Debug Steps:**
 1. Check Git status: `git status`
-2. Enable debug logging: `smartCommit.debug.enableLogging: true`
-3. Check Output → Smart Commit
+2. Enable debug logging: `gitChangelistManager.debug.enableLogging: true`
+3. Check Output → Git Changelist Manager
 4. Refresh manually (click refresh button)
 
 ---
@@ -225,16 +225,16 @@ Unassigned files:
 
 ### Can I commit without staging first?
 
-No, Smart Commit follows Git's standard workflow:
+No, Git Changelist Manager follows Git's standard workflow:
 
 **Workflow:**
-1. Organize files into change lists (Smart Commit)
-2. Stage a change list (Smart Commit → Git staging area)
+1. Organize files into change lists (Git Changelist Manager)
+2. Stage a change list (Git Changelist Manager → Git staging area)
 3. Write commit message (VS Code Git UI)
 4. Commit staged files (Git)
 
 **Why?**
-- Staging is a Git concept, not a Smart Commit concept
+- Staging is a Git concept, not a Git Changelist Manager concept
 - VS Code's commit UI expects staged files
 - Compatible with all Git tools and workflows
 
@@ -270,7 +270,7 @@ The Default list is a **system list** that serves as a fallback:
 - Ctrl+Click: Toggle files one by one
 - Shift+Click: Select range
 - Ctrl+A: Select all in current list
-- Right-click → Move to Change List
+- Right-click → Move to Changelist
 ```
 
 **2. Create Lists First**
@@ -309,7 +309,7 @@ Yes, with **isolated state** per workspace folder:
 
 ### What happens if I commit outside VS Code?
 
-Smart Commit detects external commits and cleans up automatically:
+Git Changelist Manager detects external commits and cleans up automatically:
 
 **Example:**
 ```bash
@@ -317,7 +317,7 @@ git add .
 git commit -m "feat: Add feature"
 ```
 
-**Smart Commit Response:**
+**Git Changelist Manager Response:**
 1. Detects HEAD change (commit happened)
 2. Identifies which files were committed
 3. Removes those files from change lists
@@ -328,16 +328,16 @@ git commit -m "feat: Add feature"
 
 ---
 
-### Does Smart Commit work with Git command line?
+### Does Git Changelist Manager work with Git command line?
 
 Yes! Full bidirectional compatibility:
 
-**CLI → Smart Commit:**
+**CLI → Git Changelist Manager:**
 - `git add file.ts` → Detects staging, assigns to active list
 - `git commit` → Detects commit, cleans up change lists
 - `git reset` → Detects unstaging, updates view
 
-**Smart Commit → CLI:**
+**Git Changelist Manager → CLI:**
 - Create/move files in UI → No effect on Git (organization only)
 - Stage change list → Files visible in `git status` as staged
 - Commit via UI → Standard Git commit (visible in `git log`)
@@ -375,7 +375,7 @@ Yes! Full bidirectional compatibility:
 
 ### Extension not activating
 
-**Symptoms:** Change Lists view doesn't appear.
+**Symptoms:** Changelists view doesn't appear.
 
 **Solutions:**
 
@@ -384,7 +384,7 @@ Yes! Full bidirectional compatibility:
    - Run `git init` or open existing repo
 
 2. **Check activation events**
-   - View → Output → Select "Smart Commit"
+   - View → Output → Select "Git Changelist Manager"
    - Look for activation errors
 
 3. **Restart VS Code**
@@ -412,25 +412,25 @@ Yes! Full bidirectional compatibility:
 1. **Enable guard**
    ```json
    {
-     "smartCommit.commitGuard.enabled": true
+     "gitChangelistManager.commitGuard.enabled": true
    }
    ```
 
 2. **Enable interception** (optional but recommended)
    ```json
    {
-     "smartCommit.commitGuard.interceptCommit": true
+     "gitChangelistManager.commitGuard.interceptCommit": true
    }
    ```
    Restart VS Code after enabling.
 
 3. **Use keybinding, not button**
    - Press `Ctrl+Enter` / `Cmd+Enter` (guard intercepts this)
-   - Or: Command Palette → "Smart Commit: Commit (with Guard)"
+   - Or: Command Palette → "Git Changelist Manager: Commit (with Guard)"
    - Don't click native commit button (guard can't intercept it)
 
 4. **Check logs**
-   - Output → Smart Commit
+   - Output → Git Changelist Manager
    - Look for guard activation messages
 
 ---
@@ -444,7 +444,7 @@ Yes! Full bidirectional compatibility:
 1. **Enable status bar**
    ```json
    {
-     "smartCommit.showStatusBar": true
+     "gitChangelistManager.showStatusBar": true
    }
    ```
 
@@ -464,7 +464,7 @@ Yes! Full bidirectional compatibility:
 **Solutions:**
 
 1. **Use context menu instead**
-   - Right-click → Move to Change List
+   - Right-click → Move to Changelist
    - Drag-and-drop is optional convenience
 
 2. **Check for conflicts**
@@ -485,7 +485,7 @@ Yes! Full bidirectional compatibility:
 1. **Use list mode**
    ```json
    {
-     "smartCommit.defaultViewMode": "list"
+     "gitChangelistManager.defaultViewMode": "list"
    }
    ```
    - List mode has less overhead than tree mode
@@ -493,7 +493,7 @@ Yes! Full bidirectional compatibility:
 2. **Disable debug logging**
    ```json
    {
-     "smartCommit.debug.enableLogging": false
+     "gitChangelistManager.debug.enableLogging": false
    }
    ```
    - Reduces log volume in Output channel
@@ -582,12 +582,12 @@ All editors based on VS Code's Extension API are compatible.
 
 ### Can I use this with WSL (Windows Subsystem for Linux)?
 
-**Yes!** Smart Commit works with remote development:
+**Yes!** Git Changelist Manager works with remote development:
 
 **Setup:**
 1. Install Remote - WSL extension
 2. Connect to WSL
-3. Install Smart Commit in WSL (not Windows)
+3. Install Git Changelist Manager in WSL (not Windows)
 4. Open Git repo in WSL
 
 **Note:** Extension must be installed in remote environment, not local Windows.
@@ -601,10 +601,10 @@ All editors based on VS Code's Extension API are compatible.
 
 ### Does this work with GitHub Codespaces?
 
-**Yes!** Install Smart Commit in the Codespace:
+**Yes!** Install Git Changelist Manager in the Codespace:
 
 1. Open Codespace
-2. Extensions → Search "Smart Commit"
+2. Extensions → Search "Git Changelist Manager"
 3. Install
 4. Works identical to local VS Code
 
@@ -613,9 +613,9 @@ All editors based on VS Code's Extension API are compatible.
 ## Still Have Questions?
 
 - **Check Documentation:** [README.md](../README.md), [USER_GUIDE.md](USER_GUIDE.md), [FEATURES.md](FEATURES.md)
-- **Search Issues:** [GitHub Issues](https://github.com/maxinne-dev/vscode-smart-commit/issues)
-- **Ask Community:** [GitHub Discussions](https://github.com/maxinne-dev/vscode-smart-commit/discussions)
-- **Report Bug:** [Open an Issue](https://github.com/maxinne-dev/vscode-smart-commit/issues/new)
+- **Search Issues:** [GitHub Issues](https://github.com/Hudson-TR/Git-Changelist-Manager/issues)
+- **Ask Community:** [GitHub Discussions](https://github.com/Hudson-TR/Git-Changelist-Manager/discussions)
+- **Report Bug:** [Open an Issue](https://github.com/Hudson-TR/Git-Changelist-Manager/issues/new)
 
 ---
 

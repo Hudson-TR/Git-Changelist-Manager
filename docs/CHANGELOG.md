@@ -1,20 +1,68 @@
 # Changelog
 
-All notable changes to the Smart Commit extension will be documented in this file.
+All notable changes to the Git Changelist Manager extension will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
-Features and improvements planned for future releases. See the [Roadmap](../README.md#roadmap) in the main README.
+---
+
+## [1.1.0] - 2026-06-23
+
+### Added
+
+- `NOTICE` file with AGPL copyright attribution.
+- `tsconfig.json` `types: ["node"]` for TypeScript 6 compatibility.
+
+### Changed
+
+- Command palette titles use **Changelist** naming (e.g. `Create Changelist`, `Stage Changelist`).
+- SCM view label updated from **Change Lists** to **Changelists**.
+- View ID updated to `gitChangelistManager.changelists`.
+- User-facing messages and commit guard dialogs aligned with new terminology.
+- Documentation focused on this project; legal attribution consolidated in `NOTICE` and `LICENSE`.
+- Slimmer VSIX packaging (`docs/` and `pnpm-lock.yaml` excluded via `.vscodeignore`).
+- `vscode:prepublish` runs `tsc` directly for cleaner packaging.
+- Minimum VS Code engine raised to **1.125.0**.
+
+### Changed (Dependencies)
+
+- `typescript` 5.9 → **6.0**
+- `@types/node` 20 → **26**
+- `@types/vscode` 1.74 → **1.125**
+- `@vscode/vsce` 2.x → **3.9**
+
+### Removed
+
+- Runtime dependency on `uuid` (uses `crypto.randomUUID()`).
+- Unused `simple-git` dependency.
+
+### Breaking Changes
+
+- Extension ID is now `Hudson-TR.git-changelist-manager`.
+- Settings namespace changed from `gitChangeLists.*` to `gitChangelistManager.*` — update `settings.json` if migrating from the upstream extension.
+- Command IDs changed from `gitChangeLists.*` to `gitChangelistManager.*`.
+- Requires VS Code / Cursor **1.125.0** or newer.
+
+---
+
+## [1.0.1] - 2026-06-23
+
+### Changed
+
+- Rebranded as **Git Changelist Manager** under publisher `Hudson-TR`.
+- Replaced `uuid` with Node.js `crypto.randomUUID()` for VSIX packaging.
+- Standardized package manager on pnpm.
+- Renamed commands, settings, and view to `gitChangelistManager.*`.
 
 ---
 
 ## [1.0.0] - 2026-02-01
 
 ### Added
-- Initial release of Smart Commit.
+- Initial release of Git Changelist Manager.
 - Custom Named Change Lists.
 - Integrated Staging Workflow.
 - Commit Guard (prevent mixed commits).
@@ -38,7 +86,7 @@ Features and improvements planned for future releases. See the [Roadmap](../READ
 
 - **File Organization**
   - Drag-and-drop files between change lists with visual feedback
-  - Move files via context menu "Move to Change List"
+  - Move files via context menu "Move to Changelist"
   - Multi-select support for moving multiple files at once
   - Auto-assignment of externally staged files to active list
 
@@ -85,7 +133,7 @@ Features and improvements planned for future releases. See the [Roadmap](../READ
 
 - **Debug Logging**
   - Configurable logging system with multiple levels (DEBUG, INFO, WARN, ERROR, EVENT)
-  - Output to "Smart Commit" channel in Output panel
+  - Output to "Git Changelist Manager" channel in Output panel
   - Optional verbose DEBUG logging for troubleshooting
   - Async logging with no file I/O overhead
   - See [DEBUGGING.md](DEBUGGING.md) for details
@@ -108,11 +156,11 @@ Features and improvements planned for future releases. See the [Roadmap](../READ
 - **State Management**: JSON serialization with atomic writes to `workspaceState`
 
 #### Dependencies
-- Runtime: `simple-git@^3.x`, `uuid@^9.x`
-- Dev: TypeScript, ESLint, VS Code types, VSCE
+- Runtime: none (Node.js built-ins)
+- Dev: TypeScript 6, `@types/node` 26, `@types/vscode` 1.125, VSCE 3
 
 #### Compatibility
-- **Minimum VS Code**: 1.103.0
+- **Minimum VS Code**: 1.125.0
 - **Tested On**: VS Code, Cursor, Kiro, Windsurf, Trae, VSCodium, Google Antigravity
 - **Git Extension**: Requires `vscode.git` extension (built-in)
 - **Multi-Root Workspaces**: Prepared (isolated state per workspace folder)
@@ -140,7 +188,7 @@ Features and improvements planned for future releases. See the [Roadmap](../READ
 
 - This is an early release (0.0.1) with core functionality complete
 - Active development continues - see [Roadmap](../README.md#roadmap)
-- Feedback and contributions welcome on [GitHub](https://github.com/maxinne-dev/vscode-smart-commit)
+- Feedback and contributions welcome on [GitHub](https://github.com/Hudson-TR/Git-Changelist-Manager)
 
 ---
 
@@ -148,7 +196,7 @@ Features and improvements planned for future releases. See the [Roadmap](../READ
 
 ### Versioning Strategy
 
-Smart Commit follows [Semantic Versioning](https://semver.org/):
+Git Changelist Manager follows [Semantic Versioning](https://semver.org/):
 - **Major (1.0.0)**: Breaking changes, major rewrites
 - **Minor (0.x.0)**: New features, backwards-compatible
 - **Patch (0.0.x)**: Bug fixes, documentation, minor improvements
@@ -177,7 +225,7 @@ When upgrading in the future:
 
 ## Contributing to the Changelog
 
-When contributing to Smart Commit, please update this changelog as part of your PR:
+When contributing to Git Changelist Manager, please update this changelog as part of your PR:
 
 1. Add your changes under the `[Unreleased]` section
 2. Categorize changes as: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`
@@ -201,10 +249,12 @@ Maintainers will move unreleased changes to versioned sections during releases.
 
 ## Links
 
-- [GitHub Repository](https://github.com/maxinne-dev/vscode-smart-commit)
-- [Issue Tracker](https://github.com/maxinne-dev/vscode-smart-commit/issues)
-- [Releases](https://github.com/maxinne-dev/vscode-smart-commit/releases)
+- [GitHub Repository](https://github.com/Hudson-TR/Git-Changelist-Manager)
+- [Issue Tracker](https://github.com/Hudson-TR/Git-Changelist-Manager/issues)
+- [Releases](https://github.com/Hudson-TR/Git-Changelist-Manager/releases)
 - [Documentation](../README.md)
 
-[Unreleased]: https://github.com/maxinne-dev/vscode-smart-commit/compare/v1.0.0...HEAD
-[1.0.0]: https://github.com/maxinne-dev/vscode-smart-commit/releases/tag/v1.0.0
+[Unreleased]: https://github.com/Hudson-TR/Git-Changelist-Manager/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/Hudson-TR/Git-Changelist-Manager/releases/tag/v1.1.0
+[1.0.1]: https://github.com/Hudson-TR/Git-Changelist-Manager/releases/tag/v1.0.1
+[1.0.0]: https://github.com/Hudson-TR/Git-Changelist-Manager/releases/tag/v1.0.0

@@ -1,6 +1,6 @@
-# Smart Commit User Guide
+# Git Changelist Manager User Guide
 
-Step-by-step guide to using Smart Commit effectively in your workflow.
+Step-by-step guide to using Git Changelist Manager effectively in your workflow.
 
 ---
 
@@ -20,11 +20,11 @@ Step-by-step guide to using Smart Commit effectively in your workflow.
 
 ### First Time Setup
 
-After [installing Smart Commit](INSTALLATION.md), follow these steps to get started:
+After [installing Git Changelist Manager](INSTALLATION.md), follow these steps to get started:
 
 #### Step 1: Open a Git Repository
 
-Smart Commit requires an active Git repository:
+Git Changelist Manager requires an active Git repository:
 
 - Open an existing Git project folder
 - Or initialize a new repository:
@@ -35,7 +35,7 @@ Smart Commit requires an active Git repository:
 #### Step 2: Locate the Change Lists View
 
 1. Open Source Control panel: `Ctrl+Shift+G` / `Cmd+Shift+G`
-2. Look for the **Change Lists** section
+2. Look for the **Changelists** section
 3. You should see a "Default" change list
 
 #### Step 3: Make Your First Change
@@ -54,21 +54,21 @@ Create named containers for organizing your work:
 
 **Method 1: Via View Header**
 
-1. Click the **+** button in the Change Lists view header
+1. Click the **+** button in the Changelists view header
 2. Enter a descriptive name (e.g., "Feature: User Login")
 3. Press Enter
 
 **Method 2: Via Command Palette**
 
 1. Open Command Palette: `Ctrl+Shift+P` / `Cmd+Shift+P`
-2. Type "Smart Commit: Create Change List"
+2. Type "Git Changelist Manager: Create Changelist"
 3. Press Enter
 4. Enter your change list name
 
 **Method 3: Via Context Menu**
 
-1. Right-click in empty space of the Change Lists view
-2. Select **Create Change List**
+1. Right-click in empty space of the Changelists view
+2. Select **Create Changelist**
 3. Enter name
 
 **Naming Tips:**
@@ -93,7 +93,7 @@ Organize your changes by moving files to appropriate lists:
 **Method 2: Context Menu**
 
 1. Right-click a file
-2. Select **Move to Change List**
+2. Select **Move to Changelist**
 3. Choose destination from submenu
 4. Or select **Create New...** to create a list on-the-fly
 
@@ -103,7 +103,7 @@ Organize your changes by moving files to appropriate lists:
    - `Ctrl+Click` / `Cmd+Click` to toggle individual files
    - `Shift+Click` to select a range
 2. Right-click any selected file
-3. Select **Move to Change List**
+3. Select **Move to Changelist**
 4. All selected files move together
 
 ---
@@ -115,7 +115,7 @@ The active list automatically receives new changes:
 **Method 1: Context Menu**
 
 1. Right-click a change list
-2. Select **Set as Active Change List**
+2. Select **Set Active Changelist**
 3. The list is marked with a checkmark
 
 **Method 2: Keybinding**
@@ -143,7 +143,7 @@ The active list automatically receives new changes:
 Change list names can be updated anytime:
 
 1. Right-click a change list
-2. Select **Rename Change List**
+2. Select **Rename Changelist**
 3. Enter new name
 4. Press Enter
 
@@ -159,7 +159,7 @@ Change list names can be updated anytime:
 Remove lists you no longer need:
 
 1. Right-click a change list (not the Default list)
-2. Select **Delete Change List**
+2. Select **Delete Changelist**
 3. Confirm if the list is non-empty
 4. Files are reassigned to the Default list
 
@@ -176,7 +176,7 @@ Prepare changes for commit:
 **Step 1: Stage a Change List**
 
 1. Right-click a change list
-2. Select **Stage Change List**
+2. Select **Stage Changelist**
 3. All files in the list are staged
 4. Check VS Code's "Staged Changes" section to verify
 
@@ -203,7 +203,7 @@ Click the checkmark button in the Git view
 
 **Step 4: Post-Commit**
 
-- Smart Commit automatically removes committed files from change lists
+- Git Changelist Manager automatically removes committed files from change lists
 - Your change list is now empty and ready for new work
 
 ---
@@ -220,7 +220,7 @@ Toggle between flat and hierarchical displays:
 **Via Command Palette:**
 
 1. `Ctrl+Shift+P` / `Cmd+Shift+P`
-2. Run: `Smart Commit: Toggle List/Tree View`
+2. Run: `Git Changelist Manager: Toggle List/Tree View`
 
 **List Mode:**
 - Flat display of all files
@@ -248,7 +248,7 @@ Work on multiple features without premature commits.
 
 **Steps:**
 
-1. **Create Change Lists**
+1. **Create Changelists**
    ```
    - Create "Feature: Authentication"
    - Create "Feature: Dark Mode"
@@ -508,8 +508,8 @@ Protect yourself from mixed commits:
 
 ```json
 {
-  "smartCommit.commitGuard.enabled": true,
-  "smartCommit.commitGuard.interceptCommit": true
+  "gitChangelistManager.commitGuard.enabled": true,
+  "gitChangelistManager.commitGuard.interceptCommit": true
 }
 ```
 
@@ -554,14 +554,14 @@ Move many files efficiently:
 
 1. Select 10 files in "Default" list
 2. Right-click any selected file
-3. Move to Change List → "Feature X"
+3. Move to Changelist → "Feature X"
 4. All 10 files move at once
 
 ---
 
 ### External Git Integration
 
-Smart Commit works alongside command-line Git:
+Git Changelist Manager works alongside command-line Git:
 
 **Scenario: Stage via Command Line**
 
@@ -569,7 +569,7 @@ Smart Commit works alongside command-line Git:
 git add src/authentication.ts
 ```
 
-**Smart Commit Response:**
+**Git Changelist Manager Response:**
 - Detects staging operation
 - Assigns file to active change list
 - Updates tree view
@@ -580,14 +580,14 @@ git add src/authentication.ts
 git commit -m "feat: Add authentication"
 ```
 
-**Smart Commit Response:**
+**Git Changelist Manager Response:**
 - Detects commit
 - Removes committed files from change lists
 - Cleans up automatically
 
 **Best Practices:**
 - Mix GUI and CLI freely
-- Smart Commit stays synchronized
+- Git Changelist Manager stays synchronized
 - No manual cleanup required
 
 ---
@@ -604,7 +604,7 @@ Optimize for large projects:
 **Disable Debug Logging:**
 ```json
 {
-  "smartCommit.debug.enableLogging": false
+  "gitChangelistManager.debug.enableLogging": false
 }
 ```
 
@@ -708,18 +708,18 @@ Optimize for large projects:
 ### Integration with Other Extensions
 
 **Commit Message Extensions:**
-- Smart Commit works with commit message templates
+- Git Changelist Manager works with commit message templates
 - Use VS Code's native commit input
 - Extensions like "Conventional Commits" work perfectly
 
 **GitLens:**
 - Full compatibility
 - Use GitLens for blame, history, comparisons
-- Use Smart Commit for organization
+- Use Git Changelist Manager for organization
 
 **Git Graph:**
 - View commit history graphically
-- Smart Commit commits appear normally
+- Git Changelist Manager commits appear normally
 - No conflicts or issues
 
 ---
@@ -730,7 +730,7 @@ Optimize for large projects:
 
 | Action | Windows/Linux | macOS | Context |
 |--------|--------------|-------|---------|
-| Set Active List | `Ctrl+Shift+L` | `Cmd+Shift+L` | Change Lists view |
+| Set Active List | `Ctrl+Shift+L` | `Cmd+Shift+L` | Changelists view |
 | Move to List | `Alt+Shift+M` | `Alt+Shift+M` | File selected |
 | Guarded Commit | `Ctrl+Enter` | `Cmd+Enter` | SCM input focused (if enabled) |
 | Open SCM | `Ctrl+Shift+G` | `Cmd+Shift+G` | Anywhere |
@@ -741,7 +741,7 @@ Optimize for large projects:
 **Edit Keybindings:**
 
 1. File → Preferences → Keyboard Shortcuts
-2. Search for "Smart Commit"
+2. Search for "Git Changelist Manager"
 3. Click pencil icon to change binding
 4. Press desired key combination
 
@@ -750,7 +750,7 @@ Optimize for large projects:
 ```json
 {
   "key": "ctrl+alt+c",
-  "command": "smartCommit.createList"
+  "command": "gitChangelistManager.createList"
 }
 ```
 
@@ -789,7 +789,7 @@ Optimize for large projects:
 1. Enable guard: `commitGuard.enabled: true`
 2. Enable interception: `commitGuard.interceptCommit: true` (restart required)
 3. Use `Ctrl+Enter` keybinding, not the commit button
-4. Or use Command Palette: "Smart Commit: Commit (with Guard)"
+4. Or use Command Palette: "Git Changelist Manager: Commit (with Guard)"
 
 ---
 
@@ -798,7 +798,7 @@ Optimize for large projects:
 **Issue:** Can't move file to correct list.
 
 **Solutions:**
-1. Right-click file → Move to Change List → Select destination
+1. Right-click file → Move to Changelist → Select destination
 2. Or drag-and-drop to correct list
 3. Refresh view if UI is stale
 4. Check debug logs for errors
@@ -810,7 +810,7 @@ Optimize for large projects:
 - **Explore Features:** See [FEATURES.md](FEATURES.md) for detailed feature docs
 - **Configure Settings:** Check [CONFIGURATION.md](CONFIGURATION.md) for all options
 - **Get Help:** Visit [FAQ.md](FAQ.md) for common questions
-- **Report Issues:** [GitHub Issues](https://github.com/maxinne-dev/vscode-smart-commit/issues)
+- **Report Issues:** [GitHub Issues](https://github.com/Hudson-TR/Git-Changelist-Manager/issues)
 
 ---
 

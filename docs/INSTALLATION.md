@@ -1,4 +1,4 @@
-# Smart Commit Installation Guide
+# Git Changelist Manager Installation Guide
 
 Detailed installation instructions for all supported editors.
 
@@ -30,7 +30,7 @@ Detailed installation instructions for all supported editors.
 
 ## Prerequisites
 
-Before installing Smart Commit, ensure you have:
+Before installing Git Changelist Manager, ensure you have:
 
 ### Required
 
@@ -60,7 +60,7 @@ Before installing Smart Commit, ensure you have:
 
 ## Supported Editors
 
-Smart Commit has been tested and verified on the following editors:
+Git Changelist Manager has been tested and verified on the following editors:
 
 | Editor | Platform | Tested Version | Notes |
 |--------|----------|----------------|-------|
@@ -87,8 +87,8 @@ The easiest method for VS Code users:
    - Or: View → Extensions
 
 2. **Search for Extension**
-   - Type "Smart Commit" in the search box
-   - Look for the extension published by `maxie-homrich`
+   - Type "Git Changelist Manager" in the search box
+   - Look for the extension published by `Hudson-TR`
 
 3. **Install**
    - Click the **Install** button
@@ -109,7 +109,7 @@ Install from a downloaded `.vsix` file:
 
 #### Step 1: Download VSIX
 
-- **From Releases**: [GitHub Releases](https://github.com/maxinne-dev/vscode-smart-commit/releases)
+- **From Releases**: [GitHub Releases](https://github.com/Hudson-TR/Git-Changelist-Manager/releases)
 - **From Marketplace**: Download VSIX option (right side of extension page)
 
 #### Step 2: Install VSIX
@@ -134,16 +134,16 @@ Install from a downloaded `.vsix` file:
 
 ```bash
 # Visual Studio Code
-code --install-extension smart-commit-1.0.0.vsix
+code --install-extension git-changelist-manager-1.0.0.vsix
 
 # VSCodium
-codium --install-extension smart-commit-1.0.0.vsix
+codium --install-extension git-changelist-manager-1.0.0.vsix
 
 # Cursor
-cursor --install-extension smart-commit-1.0.0.vsix
+cursor --install-extension git-changelist-manager-1.0.0.vsix
 ```
 
-Replace `smart-commit-0.0.1.vsix` with the actual filename.
+Replace `git-changelist-manager-0.0.1.vsix` with the actual filename.
 
 ---
 
@@ -154,29 +154,29 @@ Build and install from source code:
 #### Step 1: Clone Repository
 
 ```bash
-git clone https://github.com/maxinne-dev/vscode-smart-commit.git
-cd vscode-smart-commit
+git clone https://github.com/Hudson-TR/Git-Changelist-Manager.git
+cd Git-Changelist-Manager
 ```
 
 #### Step 2: Install Dependencies
 
 ```bash
-npm install
+pnpm install
 ```
 
 #### Step 3: Compile TypeScript
 
 ```bash
-npm run compile
+pnpm run compile
 ```
 
 #### Step 4: Package Extension
 
 ```bash
-npm run package
+pnpm run package
 ```
 
-This creates `smart-commit-1.0.0.vsix` in the current directory.
+This creates `git-changelist-manager-1.1.0.vsix` in the current directory.
 
 #### Step 5: Install VSIX
 
@@ -207,7 +207,7 @@ Add to `.vscode/extensions.json`:
 ```json
 {
   "recommendations": [
-    "maxie-homrich.smart-commit"
+    "Hudson-TR.git-changelist-manager"
   ]
 }
 ```
@@ -218,7 +218,7 @@ Team members will see a prompt to install when opening the workspace.
 
 ### Cursor
 
-Cursor is a VS Code fork with AI features. Smart Commit works identically to VS Code.
+Cursor is a VS Code fork with AI features. Git Changelist Manager works identically to VS Code.
 
 **Installation**
 
@@ -233,7 +233,7 @@ Cursor is a VS Code fork with AI features. Smart Commit works identically to VS 
 
 **Cursor-Specific Notes**
 
-- Smart Commit is compatible with Cursor's AI features
+- Git Changelist Manager is compatible with Cursor's AI features
 - Commit messages can be enhanced by Cursor's AI
 - No conflicts with Cursor's Git integration
 
@@ -245,7 +245,7 @@ Cursor is a VS Code fork with AI features. Smart Commit works identically to VS 
 
 1. Open Kiro
 2. Navigate to Extensions: `Ctrl+Shift+X` / `Cmd+Shift+X`
-3. Search for "Smart Commit" or install from VSIX
+3. Search for "Git Changelist Manager" or install from VSIX
 4. Restart Kiro if prompted
 
 **Kiro-Specific Notes**
@@ -262,7 +262,7 @@ Cursor is a VS Code fork with AI features. Smart Commit works identically to VS 
 
 1. Open Windsurf
 2. Extensions: `Ctrl+Shift+X` / `Cmd+Shift+X`
-3. Install "Smart Commit" from marketplace or VSIX
+3. Install "Git Changelist Manager" from marketplace or VSIX
 
 **Windsurf-Specific Notes**
 
@@ -278,7 +278,7 @@ Cursor is a VS Code fork with AI features. Smart Commit works identically to VS 
 
 1. Open Trae
 2. Extensions Panel: `Ctrl+Shift+X` / `Cmd+Shift+X`
-3. Search and install "Smart Commit"
+3. Search and install "Git Changelist Manager"
 
 **Trae-Specific Notes**
 
@@ -290,17 +290,17 @@ Cursor is a VS Code fork with AI features. Smart Commit works identically to VS 
 
 ### VSCodium
 
-VSCodium is a Microsoft-free distribution of VS Code. Smart Commit works identically.
+VSCodium is a Microsoft-free distribution of VS Code. Git Changelist Manager works identically.
 
 **Installation**
 
 1. **From Open VSX**: (If using Open VSX marketplace)
-   - Search for "Smart Commit" in Extensions
+   - Search for "Git Changelist Manager" in Extensions
    - Install directly
 
 2. **From VSIX**:
    ```bash
-   codium --install-extension smart-commit-1.0.0.vsix
+   codium --install-extension git-changelist-manager-1.0.0.vsix
    ```
 
 **VSCodium-Specific Notes**
@@ -312,7 +312,7 @@ VSCodium is a Microsoft-free distribution of VS Code. Smart Commit works identic
 
 **Open VSX Registry**
 
-If Smart Commit is published to Open VSX, it will appear in VSCodium's default marketplace.
+If Git Changelist Manager is published to Open VSX, it will appear in VSCodium's default marketplace.
 
 ---
 
@@ -322,7 +322,7 @@ If Smart Commit is published to Open VSX, it will appear in VSCodium's default m
 
 1. Open Google Antigravity
 2. Access Extensions: `Ctrl+Shift+X` / `Cmd+Shift+X`
-3. Install "Smart Commit" from available sources
+3. Install "Git Changelist Manager" from available sources
 
 **Antigravity-Specific Notes**
 
@@ -334,12 +334,12 @@ If Smart Commit is published to Open VSX, it will appear in VSCodium's default m
 
 ## Verification
 
-After installation, verify Smart Commit is working:
+After installation, verify Git Changelist Manager is working:
 
 ### Step 1: Check Extension is Installed
 
 1. Open Extensions view: `Ctrl+Shift+X` / `Cmd+Shift+X`
-2. Search for "Smart Commit"
+2. Search for "Git Changelist Manager"
 3. Should show **Installed** status
 4. Click to view extension details
 
@@ -351,47 +351,47 @@ After installation, verify Smart Commit is working:
 ### Step 3: Verify Change Lists View
 
 1. Open Source Control panel: `Ctrl+Shift+G` / `Cmd+Shift+G`
-2. Look for **Change Lists** section below the standard Git view
+2. Look for **Changelists** section below the standard Git view
 3. Should see "Default" change list
 
 ### Step 4: Check Commands
 
 1. Open Command Palette: `Ctrl+Shift+P` / `Cmd+Shift+P`
-2. Type "Smart Commit"
+2. Type "Git Changelist Manager"
 3. Should see commands like:
-   - Smart Commit: Create Change List
-   - Smart Commit: Set Active List
-   - Smart Commit: Refresh
+   - Git Changelist Manager: Create Changelist
+   - Git Changelist Manager: Set Active List
+   - Git Changelist Manager: Refresh
    - etc.
 
 ### Step 5: Test Basic Functionality
 
 1. Make a change to a file (or create a new file)
 2. File should appear in "Default" change list
-3. Right-click the file → **Move to Change List** should work
+3. Right-click the file → **Move to Changelist** should work
 4. Status bar should show `[Default]` (if `showStatusBar` is enabled)
 
-If all steps pass, Smart Commit is installed and working correctly!
+If all steps pass, Git Changelist Manager is installed and working correctly!
 
 ---
 
 ## Initial Configuration
 
-After installation, consider configuring Smart Commit to match your workflow:
+After installation, consider configuring Git Changelist Manager to match your workflow:
 
 ### Recommended First Steps
 
 1. **Set Default View Mode**
    ```json
    {
-     "smartCommit.defaultViewMode": "tree"  // or "list"
+     "gitChangelistManager.defaultViewMode": "tree"  // or "list"
    }
    ```
 
 2. **Enable Commit Guard with Interception** (Optional)
    ```json
    {
-     "smartCommit.commitGuard.interceptCommit": true
+     "gitChangelistManager.commitGuard.interceptCommit": true
    }
    ```
    Restart VS Code after enabling.
@@ -399,12 +399,12 @@ After installation, consider configuring Smart Commit to match your workflow:
 3. **Adjust Status Bar** (Optional)
    ```json
    {
-     "smartCommit.showStatusBar": false  // if you prefer hidden
+     "gitChangelistManager.showStatusBar": false  // if you prefer hidden
    }
    ```
 
 4. **Create Your First Change List**
-   - Command Palette → `Smart Commit: Create Change List`
+   - Command Palette → `Git Changelist Manager: Create Changelist`
    - Name it after your current task
 
 See [CONFIGURATION.md](CONFIGURATION.md) for all settings.
@@ -423,14 +423,14 @@ If installed from marketplace:
 
 ### Manual Update from VSIX
 
-1. Download new `.vsix` file from [Releases](https://github.com/maxinne-dev/vscode-smart-commit/releases)
+1. Download new `.vsix` file from [Releases](https://github.com/Hudson-TR/Git-Changelist-Manager/releases)
 2. Install new VSIX (overwrites old version)
 3. Reload editor
 
 ### Checking Version
 
 - Open Extensions view
-- Find "Smart Commit"
+- Find "Git Changelist Manager"
 - Version number is displayed next to the name
 - Click extension to see full details and changelog
 
@@ -446,10 +446,10 @@ If installed from marketplace:
 
 ### Extension Not Appearing
 
-**Issue:** Can't find Smart Commit in Extensions view.
+**Issue:** Can't find Git Changelist Manager in Extensions view.
 
 **Solutions:**
-1. **Check spelling**: Search for "Smart Commit" (exact)
+1. **Check spelling**: Search for "Git Changelist Manager" (exact)
 2. **Check filters**: Click "..." → Clear Filters
 3. **Restart editor**: Close and reopen
 4. **Check installation log**: Help → Toggle Developer Tools → Console tab
@@ -458,13 +458,13 @@ If installed from marketplace:
 
 ### Extension Not Activating
 
-**Issue:** Extension is installed but Change Lists view doesn't appear.
+**Issue:** Extension is installed but Changelists view doesn't appear.
 
 **Solutions:**
 1. **Open a Git repo**: Extension only activates with Git repositories
 2. **Check Git extension**: Ensure built-in Git extension is enabled
 3. **Restart editor**: Reload window (Developer: Reload Window)
-4. **Check activation events**: View → Output → Select "Smart Commit"
+4. **Check activation events**: View → Output → Select "Git Changelist Manager"
 
 ---
 
@@ -482,7 +482,7 @@ If installed from marketplace:
 
 ### Git Not Found
 
-**Issue:** Smart Commit shows "Git not found" error.
+**Issue:** Git Changelist Manager shows "Git not found" error.
 
 **Solutions:**
 1. **Install Git**: Download from [git-scm.com](https://git-scm.com/)
@@ -509,7 +509,7 @@ If installed from marketplace:
 ### Via Extensions View
 
 1. Open Extensions: `Ctrl+Shift+X` / `Cmd+Shift+X`
-2. Find "Smart Commit"
+2. Find "Git Changelist Manager"
 3. Click **Uninstall** button
 4. Reload editor if prompted
 
@@ -517,13 +517,13 @@ If installed from marketplace:
 
 ```bash
 # Visual Studio Code
-code --uninstall-extension maxie-homrich.smart-commit
+code --uninstall-extension Hudson-TR.git-changelist-manager
 
 # VSCodium
-codium --uninstall-extension maxie-homrich.smart-commit
+codium --uninstall-extension Hudson-TR.git-changelist-manager
 
 # Cursor
-cursor --uninstall-extension maxie-homrich.smart-commit
+cursor --uninstall-extension Hudson-TR.git-changelist-manager
 ```
 
 ### Removing Settings
@@ -531,8 +531,8 @@ cursor --uninstall-extension maxie-homrich.smart-commit
 After uninstalling, optionally remove settings:
 
 1. Open `settings.json`
-2. Remove all `smartCommit.*` settings
-3. Or: Use Settings UI → Search "Smart Commit" → Click "X" on each setting
+2. Remove all `gitChangelistManager.*` settings
+3. Or: Use Settings UI → Search "Git Changelist Manager" → Click "X" on each setting
 
 ### Removing State
 
@@ -547,7 +547,7 @@ Extension state is stored in workspace storage:
 If you encounter issues during installation:
 
 1. **Check FAQ**: [docs/FAQ.md](FAQ.md)
-2. **Search Issues**: [GitHub Issues](https://github.com/maxinne-dev/vscode-smart-commit/issues)
+2. **Search Issues**: [GitHub Issues](https://github.com/Hudson-TR/Git-Changelist-Manager/issues)
 3. **Open New Issue**: Provide:
    - Editor name and version
    - Operating system
@@ -564,8 +564,8 @@ After successful installation:
 1. **Read User Guide**: [USER_GUIDE.md](USER_GUIDE.md) for workflows
 2. **Explore Features**: [FEATURES.md](FEATURES.md) for details
 3. **Configure Settings**: [CONFIGURATION.md](CONFIGURATION.md) for customization
-4. **Join Community**: [GitHub Discussions](https://github.com/maxinne-dev/vscode-smart-commit/discussions)
+4. **Join Community**: [GitHub Discussions](https://github.com/Hudson-TR/Git-Changelist-Manager/discussions)
 
 ---
 
-Happy committing with Smart Commit! ✓
+Happy committing with Git Changelist Manager! ✓

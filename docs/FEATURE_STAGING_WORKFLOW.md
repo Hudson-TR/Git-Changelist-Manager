@@ -18,7 +18,7 @@ Instead of committing directly from the extension, the new workflow:
 > As a user, I want to stage a change list and then use VS Code's commit input, so I can benefit from commit message extensions (AI suggestions, templates, etc.)
 
 **Flow:**
-1. User right-clicks a change list → "Stage Change List"
+1. User right-clicks a change list → "Stage Changelist"
 2. Extension stages all files in that list
 3. User writes commit message in VS Code's SCM input
 4. User clicks the commit button (or uses Ctrl+Enter)
@@ -94,7 +94,7 @@ The VS Code Git extension doesn't expose a pre-commit hook API. Instead, we can:
 **Recommended: Option A (Command Override)**
 ```typescript
 // Register a wrapper around git.commit
-vscode.commands.registerCommand('smartCommit.guardedCommit', async () => {
+vscode.commands.registerCommand('gitChangelistManager.guardedCommit', async () => {
   const validation = await this.validateStagedFiles();
 
   if (!validation.valid) {
@@ -192,17 +192,17 @@ private handleCommitCompleted(): void {
 
 ```json
 {
-  "smartCommit.commitGuard.enabled": {
+  "gitChangelistManager.commitGuard.enabled": {
     "type": "boolean",
     "default": true,
     "description": "Warn when staging files from multiple change lists before commit"
   },
-  "smartCommit.commitGuard.interceptCommit": {
+  "gitChangelistManager.commitGuard.interceptCommit": {
     "type": "boolean",
     "default": false,
     "description": "Intercept the native Git commit command to apply the commit guard"
   },
-  "smartCommit.autoAssignStagedFiles": {
+  "gitChangelistManager.autoAssignStagedFiles": {
     "type": "boolean",
     "default": true,
     "description": "Automatically assign externally staged files to the active change list"
@@ -214,11 +214,11 @@ private handleCommitCompleted(): void {
 
 **Important:** When `commitGuard.interceptCommit` is enabled, the guard only intercepts commits made via:
 - **Keyboard shortcut** (`Ctrl+Enter` / `Cmd+Enter`) in the SCM input box
-- **Command palette** (`Smart Commit: Commit (with Guard)`)
+- **Command palette** (`Git Changelist Manager: Commit (with Guard)`)
 
 Clicking the native **commit button** (checkmark icon) in the SCM view will **not** trigger the guard. This is a VS Code API limitation - there is no stable API to intercept the native commit button.
 
-**Workaround:** Train yourself to use `Ctrl+Enter` instead of the button, or always use "Stage Change List" first and review staged files before committing.
+**Workaround:** Train yourself to use `Ctrl+Enter` instead of the button, or always use "Stage Changelist" first and review staged files before committing.
 
 ### Updated Constants
 
@@ -233,12 +233,12 @@ export const CONFIG = {
 ## UI Changes
 
 ### 1. Rename Command
-- Old: "Commit Change List"
-- New: "Stage Change List" (already exists, becomes primary action)
+- Old: "Commit Changelist"
+- New: "Stage Changelist" (already exists, becomes primary action)
 
 ### 2. Remove Direct Commit
-- Remove `smartCommit.commitList` command
-- Keep `smartCommit.stageList` as the main action
+- Remove `gitChangelistManager.commitList` command
+- Keep `gitChangelistManager.stageList` as the main action
 
 ### 3. Guard Dialog
 

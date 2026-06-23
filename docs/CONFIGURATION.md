@@ -1,6 +1,6 @@
-# Smart Commit Configuration
+# Git Changelist Manager Configuration
 
-Complete reference for all configuration settings in Smart Commit v1.0.0.
+Complete reference for all configuration settings in Git Changelist Manager v1.0.0.
 
 ---
 
@@ -18,30 +18,30 @@ Complete reference for all configuration settings in Smart Commit v1.0.0.
 
 ## Configuration Overview
 
-Smart Commit can be configured through VS Code's settings UI or by editing `settings.json` directly.
+Git Changelist Manager can be configured through VS Code's settings UI or by editing `settings.json` directly.
 
 ### Access Settings
 
 #### Via Settings UI
 
 1. Open Settings: `Ctrl+,` (or `Cmd+,` on Mac)
-2. Search for "Smart Commit"
+2. Search for "Git Changelist Manager"
 3. Modify settings with checkboxes and dropdowns
 
 #### Via settings.json
 
 1. Open Command Palette: `Ctrl+Shift+P` / `Cmd+Shift+P`
 2. Run: `Preferences: Open Settings (JSON)`
-3. Add Smart Commit settings under the root object
+3. Add Git Changelist Manager settings under the root object
 
 ### Setting Namespace
 
-All Smart Commit settings are prefixed with `smartCommit.`:
+All Git Changelist Manager settings are prefixed with `gitChangelistManager.`:
 
 ```json
 {
-  "smartCommit.defaultViewMode": "list",
-  "smartCommit.showStatusBar": true
+  "gitChangelistManager.defaultViewMode": "list",
+  "gitChangelistManager.showStatusBar": true
 }
 ```
 
@@ -53,14 +53,14 @@ Quick reference table of all available settings:
 
 | Setting | Type | Default | Scope | Description |
 |---------|------|---------|-------|-------------|
-| `smartCommit.defaultViewMode` | `"list"` \| `"tree"` | `"list"` | Workspace | Default view mode for file display |
-| `smartCommit.showStatusBar` | `boolean` | `true` | Global | Show active list in status bar |
-| `smartCommit.confirmDeleteNonEmpty` | `boolean` | `true` | Global | Confirm before deleting non-empty lists |
-| `smartCommit.autoActivateNew` | `boolean` | `true` | Global | Auto-activate newly created lists |
-| `smartCommit.commitGuard.enabled` | `boolean` | `true` | Global | Warn when staging mixed change lists |
-| `smartCommit.commitGuard.interceptCommit` | `boolean` | `false` | Global | Intercept native commit command |
-| `smartCommit.autoAssignStagedFiles` | `boolean` | `true` | Global | Auto-assign externally staged files |
-| `smartCommit.debug.enableLogging` | `boolean` | `true` | Global | Enable verbose debug logging |
+| `gitChangelistManager.defaultViewMode` | `"list"` \| `"tree"` | `"list"` | Workspace | Default view mode for file display |
+| `gitChangelistManager.showStatusBar` | `boolean` | `true` | Global | Show active list in status bar |
+| `gitChangelistManager.confirmDeleteNonEmpty` | `boolean` | `true` | Global | Confirm before deleting non-empty lists |
+| `gitChangelistManager.autoActivateNew` | `boolean` | `true` | Global | Auto-activate newly created lists |
+| `gitChangelistManager.commitGuard.enabled` | `boolean` | `true` | Global | Warn when staging mixed change lists |
+| `gitChangelistManager.commitGuard.interceptCommit` | `boolean` | `false` | Global | Intercept native commit command |
+| `gitChangelistManager.autoAssignStagedFiles` | `boolean` | `true` | Global | Auto-assign externally staged files |
+| `gitChangelistManager.debug.enableLogging` | `boolean` | `true` | Global | Enable verbose debug logging |
 
 ---
 
@@ -68,7 +68,7 @@ Quick reference table of all available settings:
 
 ### View and Display
 
-#### `smartCommit.defaultViewMode`
+#### `gitChangelistManager.defaultViewMode`
 
 **Type:** `"list"` | `"tree"`
 **Default:** `"list"`
@@ -92,7 +92,7 @@ Determines the initial view mode when opening a workspace or creating a change l
 
 ```json
 {
-  "smartCommit.defaultViewMode": "tree"
+  "gitChangelistManager.defaultViewMode": "tree"
 }
 ```
 
@@ -103,7 +103,7 @@ Determines the initial view mode when opening a workspace or creating a change l
 
 ---
 
-#### `smartCommit.showStatusBar`
+#### `gitChangelistManager.showStatusBar`
 
 **Type:** `boolean`
 **Default:** `true`
@@ -126,7 +126,7 @@ Controls visibility of the active change list indicator in the status bar.
 
 ```json
 {
-  "smartCommit.showStatusBar": false
+  "gitChangelistManager.showStatusBar": false
 }
 ```
 
@@ -139,7 +139,7 @@ Controls visibility of the active change list indicator in the status bar.
 
 ### Confirmations and Safety
 
-#### `smartCommit.confirmDeleteNonEmpty`
+#### `gitChangelistManager.confirmDeleteNonEmpty`
 
 **Type:** `boolean`
 **Default:** `true`
@@ -163,7 +163,7 @@ Asks for confirmation before deleting a change list that contains files.
 
 ```json
 {
-  "smartCommit.confirmDeleteNonEmpty": false
+  "gitChangelistManager.confirmDeleteNonEmpty": false
 }
 ```
 
@@ -178,7 +178,7 @@ Asks for confirmation before deleting a change list that contains files.
 
 ### Automation
 
-#### `smartCommit.autoActivateNew`
+#### `gitChangelistManager.autoActivateNew`
 
 **Type:** `boolean`
 **Default:** `true`
@@ -202,7 +202,7 @@ Automatically sets newly created change lists as active.
 
 ```json
 {
-  "smartCommit.autoActivateNew": false
+  "gitChangelistManager.autoActivateNew": false
 }
 ```
 
@@ -226,7 +226,7 @@ Automatically sets newly created change lists as active.
 
 ---
 
-#### `smartCommit.autoAssignStagedFiles`
+#### `gitChangelistManager.autoAssignStagedFiles`
 
 **Type:** `boolean`
 **Default:** `true`
@@ -250,7 +250,7 @@ Automatically assigns externally staged files to the active change list.
 
 ```json
 {
-  "smartCommit.autoAssignStagedFiles": false
+  "gitChangelistManager.autoAssignStagedFiles": false
 }
 ```
 
@@ -269,7 +269,7 @@ Automatically assigns externally staged files to the active change list.
 
 ### Commit Guard
 
-#### `smartCommit.commitGuard.enabled`
+#### `gitChangelistManager.commitGuard.enabled`
 
 **Type:** `boolean`
 **Default:** `true`
@@ -293,7 +293,7 @@ Enables the commit guard feature that warns when committing files from multiple 
 
 ```json
 {
-  "smartCommit.commitGuard.enabled": false
+  "gitChangelistManager.commitGuard.enabled": false
 }
 ```
 
@@ -303,12 +303,12 @@ Enables the commit guard feature that warns when committing files from multiple 
 - You have other validation mechanisms
 
 **Note:** Even when enabled, the guard only activates when using:
-- `Smart Commit: Commit (with Guard)` command
+- `Git Changelist Manager: Commit (with Guard)` command
 - `Ctrl+Enter` / `Cmd+Enter` keybinding (if `interceptCommit` is enabled)
 
 ---
 
-#### `smartCommit.commitGuard.interceptCommit`
+#### `gitChangelistManager.commitGuard.interceptCommit`
 
 **Type:** `boolean`
 **Default:** `false`
@@ -325,14 +325,14 @@ Intercepts the native Git commit command (`Ctrl+Enter` / `Cmd+Enter`) to apply t
 
 **When `false`:**
 - `Ctrl+Enter` / `Cmd+Enter` uses native Git commit (no guard)
-- Guard only applies when using `Smart Commit: Commit (with Guard)` command
+- Guard only applies when using `Git Changelist Manager: Commit (with Guard)` command
 - Must explicitly choose guarded commit
 
 **Example:**
 
 ```json
 {
-  "smartCommit.commitGuard.interceptCommit": true
+  "gitChangelistManager.commitGuard.interceptCommit": true
 }
 ```
 
@@ -355,7 +355,7 @@ Intercepts the native Git commit command (`Ctrl+Enter` / `Cmd+Enter`) to apply t
 
 ### Debug and Logging
 
-#### `smartCommit.debug.enableLogging`
+#### `gitChangelistManager.debug.enableLogging`
 
 **Type:** `boolean`
 **Default:** `true`
@@ -363,7 +363,7 @@ Intercepts the native Git commit command (`Ctrl+Enter` / `Cmd+Enter`) to apply t
 **Restart Required:** No (takes effect immediately)
 
 **Description:**
-Enables verbose DEBUG-level logging to the "Smart Commit" output channel.
+Enables verbose DEBUG-level logging to the "Git Changelist Manager" output channel.
 
 **When `true`:**
 - Logs DEBUG, INFO, WARN, ERROR, and EVENT messages
@@ -379,7 +379,7 @@ Enables verbose DEBUG-level logging to the "Smart Commit" output channel.
 
 ```json
 {
-  "smartCommit.debug.enableLogging": false
+  "gitChangelistManager.debug.enableLogging": false
 }
 ```
 
@@ -396,7 +396,7 @@ Enables verbose DEBUG-level logging to the "Smart Commit" output channel.
 **When to Enable:**
 - Investigating unexpected behavior
 - Reporting bugs (include logs in issue)
-- Understanding how Smart Commit works
+- Understanding how Git Changelist Manager works
 - Learning about internal operations
 
 **When to Disable:**
@@ -407,7 +407,7 @@ Enables verbose DEBUG-level logging to the "Smart Commit" output channel.
 
 **Viewing Logs:**
 1. Press `Ctrl+Shift+U` / `Cmd+Shift+U` (Output panel)
-2. Select "Smart Commit" from dropdown
+2. Select "Git Changelist Manager" from dropdown
 3. Filter by search if needed
 
 See [DEBUGGING.md](DEBUGGING.md) for more details.
@@ -418,7 +418,7 @@ See [DEBUGGING.md](DEBUGGING.md) for more details.
 
 ### Minimal Configuration (Defaults)
 
-Use Smart Commit with all default settings:
+Use Git Changelist Manager with all default settings:
 
 ```json
 {}
@@ -434,14 +434,14 @@ Optimized for experienced users who want maximum control:
 
 ```json
 {
-  "smartCommit.defaultViewMode": "tree",
-  "smartCommit.showStatusBar": true,
-  "smartCommit.confirmDeleteNonEmpty": false,
-  "smartCommit.autoActivateNew": false,
-  "smartCommit.commitGuard.enabled": true,
-  "smartCommit.commitGuard.interceptCommit": true,
-  "smartCommit.autoAssignStagedFiles": true,
-  "smartCommit.debug.enableLogging": false
+  "gitChangelistManager.defaultViewMode": "tree",
+  "gitChangelistManager.showStatusBar": true,
+  "gitChangelistManager.confirmDeleteNonEmpty": false,
+  "gitChangelistManager.autoActivateNew": false,
+  "gitChangelistManager.commitGuard.enabled": true,
+  "gitChangelistManager.commitGuard.interceptCommit": true,
+  "gitChangelistManager.autoAssignStagedFiles": true,
+  "gitChangelistManager.debug.enableLogging": false
 }
 ```
 
@@ -462,14 +462,14 @@ For users who want minimal UI and manual control:
 
 ```json
 {
-  "smartCommit.defaultViewMode": "list",
-  "smartCommit.showStatusBar": false,
-  "smartCommit.confirmDeleteNonEmpty": true,
-  "smartCommit.autoActivateNew": false,
-  "smartCommit.commitGuard.enabled": false,
-  "smartCommit.commitGuard.interceptCommit": false,
-  "smartCommit.autoAssignStagedFiles": false,
-  "smartCommit.debug.enableLogging": false
+  "gitChangelistManager.defaultViewMode": "list",
+  "gitChangelistManager.showStatusBar": false,
+  "gitChangelistManager.confirmDeleteNonEmpty": true,
+  "gitChangelistManager.autoActivateNew": false,
+  "gitChangelistManager.commitGuard.enabled": false,
+  "gitChangelistManager.commitGuard.interceptCommit": false,
+  "gitChangelistManager.autoAssignStagedFiles": false,
+  "gitChangelistManager.debug.enableLogging": false
 }
 ```
 
@@ -488,14 +488,14 @@ Maximizes confirmations and guards:
 
 ```json
 {
-  "smartCommit.defaultViewMode": "tree",
-  "smartCommit.showStatusBar": true,
-  "smartCommit.confirmDeleteNonEmpty": true,
-  "smartCommit.autoActivateNew": true,
-  "smartCommit.commitGuard.enabled": true,
-  "smartCommit.commitGuard.interceptCommit": true,
-  "smartCommit.autoAssignStagedFiles": true,
-  "smartCommit.debug.enableLogging": true
+  "gitChangelistManager.defaultViewMode": "tree",
+  "gitChangelistManager.showStatusBar": true,
+  "gitChangelistManager.confirmDeleteNonEmpty": true,
+  "gitChangelistManager.autoActivateNew": true,
+  "gitChangelistManager.commitGuard.enabled": true,
+  "gitChangelistManager.commitGuard.interceptCommit": true,
+  "gitChangelistManager.autoAssignStagedFiles": true,
+  "gitChangelistManager.debug.enableLogging": true
 }
 ```
 
@@ -514,14 +514,14 @@ Optimized for repositories with 1000+ files:
 
 ```json
 {
-  "smartCommit.defaultViewMode": "list",
-  "smartCommit.showStatusBar": true,
-  "smartCommit.confirmDeleteNonEmpty": false,
-  "smartCommit.autoActivateNew": true,
-  "smartCommit.commitGuard.enabled": true,
-  "smartCommit.commitGuard.interceptCommit": false,
-  "smartCommit.autoAssignStagedFiles": true,
-  "smartCommit.debug.enableLogging": false
+  "gitChangelistManager.defaultViewMode": "list",
+  "gitChangelistManager.showStatusBar": true,
+  "gitChangelistManager.confirmDeleteNonEmpty": false,
+  "gitChangelistManager.autoActivateNew": true,
+  "gitChangelistManager.commitGuard.enabled": true,
+  "gitChangelistManager.commitGuard.interceptCommit": false,
+  "gitChangelistManager.autoAssignStagedFiles": true,
+  "gitChangelistManager.debug.enableLogging": false
 }
 ```
 
@@ -543,9 +543,9 @@ Multiple features in parallel, clean commits:
 
 ```json
 {
-  "smartCommit.autoActivateNew": true,
-  "smartCommit.commitGuard.enabled": true,
-  "smartCommit.commitGuard.interceptCommit": true
+  "gitChangelistManager.autoActivateNew": true,
+  "gitChangelistManager.commitGuard.enabled": true,
+  "gitChangelistManager.commitGuard.interceptCommit": true
 }
 ```
 
@@ -555,9 +555,9 @@ Trying different approaches, frequent reorganization:
 
 ```json
 {
-  "smartCommit.confirmDeleteNonEmpty": false,
-  "smartCommit.autoActivateNew": false,
-  "smartCommit.autoAssignStagedFiles": false
+  "gitChangelistManager.confirmDeleteNonEmpty": false,
+  "gitChangelistManager.autoActivateNew": false,
+  "gitChangelistManager.autoAssignStagedFiles": false
 }
 ```
 
@@ -567,9 +567,9 @@ Organizing commits for PRs:
 
 ```json
 {
-  "smartCommit.defaultViewMode": "tree",
-  "smartCommit.commitGuard.enabled": true,
-  "smartCommit.commitGuard.interceptCommit": true
+  "gitChangelistManager.defaultViewMode": "tree",
+  "gitChangelistManager.commitGuard.enabled": true,
+  "gitChangelistManager.commitGuard.interceptCommit": true
 }
 ```
 
@@ -581,8 +581,8 @@ Organizing commits for PRs:
 
 ```json
 {
-  "smartCommit.defaultViewMode": "list",
-  "smartCommit.debug.enableLogging": true
+  "gitChangelistManager.defaultViewMode": "list",
+  "gitChangelistManager.debug.enableLogging": true
 }
 ```
 
@@ -590,8 +590,8 @@ Organizing commits for PRs:
 
 ```json
 {
-  "smartCommit.defaultViewMode": "tree",
-  "smartCommit.debug.enableLogging": true
+  "gitChangelistManager.defaultViewMode": "tree",
+  "gitChangelistManager.debug.enableLogging": true
 }
 ```
 
@@ -599,8 +599,8 @@ Organizing commits for PRs:
 
 ```json
 {
-  "smartCommit.defaultViewMode": "list",
-  "smartCommit.debug.enableLogging": false
+  "gitChangelistManager.defaultViewMode": "list",
+  "gitChangelistManager.debug.enableLogging": false
 }
 ```
 
@@ -608,7 +608,7 @@ Organizing commits for PRs:
 
 ## Workspace vs Global Settings
 
-Smart Commit settings can be configured at different scopes:
+Git Changelist Manager settings can be configured at different scopes:
 
 ### Global Settings (User)
 
@@ -649,15 +649,15 @@ Apply only to the current workspace:
 **User settings** (global):
 ```json
 {
-  "smartCommit.defaultViewMode": "list",
-  "smartCommit.showStatusBar": true
+  "gitChangelistManager.defaultViewMode": "list",
+  "gitChangelistManager.showStatusBar": true
 }
 ```
 
 **Workspace settings** (override for large project):
 ```json
 {
-  "smartCommit.defaultViewMode": "tree"
+  "gitChangelistManager.defaultViewMode": "tree"
 }
 ```
 
@@ -685,7 +685,7 @@ Result: This workspace uses tree mode, all others use list mode.
 1. **Enable interception**: Set `commitGuard.interceptCommit` to `true`
 2. **Restart VS Code**: Keybinding changes require restart
 3. **Check keybinding conflicts**: Another extension may override `Ctrl+Enter`
-4. **Use Command Palette**: Run `Smart Commit: Commit (with Guard)` instead
+4. **Use Command Palette**: Run `Git Changelist Manager: Commit (with Guard)` instead
 
 ### Commit Guard Not Warning
 
@@ -702,7 +702,7 @@ Result: This workspace uses tree mode, all others use list mode.
 
 **Solutions:**
 1. **Enable logging**: Set `debug.enableLogging` to `true`
-2. **Open correct channel**: Select "Smart Commit" from Output panel dropdown
+2. **Open correct channel**: Select "Git Changelist Manager" from Output panel dropdown
 3. **Check log level**: INFO/WARN/ERROR always logged; DEBUG only when enabled
 
 ### View Mode Not Persisting
@@ -725,14 +725,14 @@ Each root can have independent settings:
 **Root 1** (`.vscode/settings.json`):
 ```json
 {
-  "smartCommit.defaultViewMode": "tree"
+  "gitChangelistManager.defaultViewMode": "tree"
 }
 ```
 
 **Root 2** (`.vscode/settings.json`):
 ```json
 {
-  "smartCommit.defaultViewMode": "list"
+  "gitChangelistManager.defaultViewMode": "list"
 }
 ```
 
@@ -750,7 +750,7 @@ Not currently supported, but planned:
 
 Full JSON schema for autocomplete and validation:
 
-Smart Commit's settings are defined in `package.json` under `contributes.configuration`. VS Code automatically provides:
+Git Changelist Manager's settings are defined in `package.json` under `contributes.configuration`. VS Code automatically provides:
 - Autocomplete when editing `settings.json`
 - Validation and error messages for invalid values
 - IntelliSense documentation on hover
@@ -766,6 +766,6 @@ Smart Commit's settings are defined in `package.json` under `contributes.configu
 
 ---
 
-Have configuration questions? [Open an issue](https://github.com/maxinne-dev/vscode-smart-commit/issues) or check the [FAQ](FAQ.md)!
+Have configuration questions? [Open an issue](https://github.com/Hudson-TR/Git-Changelist-Manager/issues) or check the [FAQ](FAQ.md)!
 
-- [GitHub Repository](https://github.com/maxinne-dev/vscode-smart-commit)
+- [GitHub Repository](https://github.com/Hudson-TR/Git-Changelist-Manager)

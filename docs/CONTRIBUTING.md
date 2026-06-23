@@ -1,6 +1,6 @@
-# Contributing to Smart Commit
+# Contributing to Git Changelist Manager
 
-Thank you for considering contributing to Smart Commit! This document provides guidelines and instructions for contributing.
+Thank you for considering contributing! This document provides guidelines and instructions for contributing.
 
 ---
 
@@ -47,13 +47,13 @@ This project adheres to a Code of Conduct that all contributors are expected to 
 Found a bug? Help us improve by reporting it:
 
 **Before Submitting:**
-1. Check [existing issues](https://github.com/maxinne-dev/vscode-smart-commit/issues) for duplicates
+1. Check [existing issues](https://github.com/Hudson-TR/Git-Changelist-Manager/issues) for duplicates
 2. Try the latest version (bug may be fixed)
 3. Enable debug logging and reproduce the issue
 
 **Creating a Bug Report:**
 
-[Open a new issue](https://github.com/maxinne-dev/vscode-smart-commit/issues/new) with:
+[Open a new issue](https://github.com/Hudson-TR/Git-Changelist-Manager/issues/new) with:
 
 **Title:** Clear, specific description (e.g., "Drag-and-drop fails with large file lists")
 
@@ -75,13 +75,13 @@ Found a bug? Help us improve by reporting it:
 [What actually happened]
 
 ## Environment
-- Smart Commit version: 0.0.1
+- Git Changelist Manager version: 0.0.1
 - Editor: VS Code 1.103.0 (or Cursor, Kiro, etc.)
 - Operating System: Windows 11 / macOS 14.1 / Ubuntu 22.04
 - Git version: 2.40.0
 
 ## Debug Logs
-[Paste relevant logs from Output → Smart Commit]
+[Paste relevant logs from Output → Git Changelist Manager]
 
 ## Additional Context
 [Screenshots, videos, related issues]
@@ -94,13 +94,13 @@ Found a bug? Help us improve by reporting it:
 Have an idea for improvement? We'd love to hear it!
 
 **Before Suggesting:**
-1. Check [existing feature requests](https://github.com/maxinne-dev/vscode-smart-commit/labels/enhancement)
+1. Check [existing feature requests](https://github.com/Hudson-TR/Git-Changelist-Manager/labels/enhancement)
 2. Review the [Roadmap](../README.md#roadmap)
 3. Consider if it aligns with project goals
 
 **Creating a Feature Request:**
 
-[Open a new issue](https://github.com/maxinne-dev/vscode-smart-commit/issues/new) with label `enhancement`:
+[Open a new issue](https://github.com/Hudson-TR/Git-Changelist-Manager/issues/new) with label `enhancement`:
 
 **Title:** Feature summary (e.g., "Add color coding for change lists")
 
@@ -145,8 +145,8 @@ Want to fix a bug or implement a feature? Awesome!
 
 2. **Fork and clone**
    ```bash
-git clone https://github.com/maxinne-dev/vscode-smart-commit.git
-cd vscode-smart-commit
+git clone https://github.com/Hudson-TR/Git-Changelist-Manager.git
+cd Git-Changelist-Manager
 ```
 
 3. **Set up development environment**
@@ -220,14 +220,14 @@ Documentation improvements are always welcome!
 
 ```bash
 # Clone repository
-git clone https://github.com/maxinne-dev/vscode-smart-commit.git
-cd vscode-smart-commit
+git clone https://github.com/Hudson-TR/Git-Changelist-Manager.git
+cd Git-Changelist-Manager
 
 # Install dependencies
-npm install
+pnpm install
 
 # Compile TypeScript
-npm run compile
+pnpm run compile
 
 # Open in VS Code
 code .
@@ -236,7 +236,7 @@ code .
 **Verify Setup:**
 1. Open Command Palette: `Ctrl+Shift+P` / `Cmd+Shift+P`
 2. Run: `Developer: Show Running Extensions`
-3. Find "Smart Commit" in the list
+3. Find "Git Changelist Manager" in the list
 
 See [DEVELOPMENT.md](DEVELOPMENT.md) for detailed instructions.
 
@@ -285,7 +285,7 @@ npm run compile
 
 **Logs:**
 - Use `logger.debug()`, `logger.info()`, etc. from `src/utils/logger.ts`
-- View logs: Output → Smart Commit
+- View logs: Output → Git Changelist Manager
 
 **Developer Tools:**
 - Help → Toggle Developer Tools
@@ -574,7 +574,7 @@ Closes #123
 
 1. **Basic Functionality**
    - Extension activates
-   - Change Lists view appears
+   - Changelists view appears
    - Create, rename, delete lists works
    - Move files between lists works
    - Stage and commit works
@@ -634,8 +634,8 @@ Update docs when changing:
 
 ### Getting Help
 
-- **Questions**: [GitHub Discussions](https://github.com/maxinne-dev/vscode-smart-commit/discussions)
-- **Bugs**: [GitHub Issues](https://github.com/maxinne-dev/vscode-smart-commit/issues)
+- **Questions**: [GitHub Discussions](https://github.com/Hudson-TR/Git-Changelist-Manager/discussions)
+- **Bugs**: [GitHub Issues](https://github.com/Hudson-TR/Git-Changelist-Manager/issues)
 - **Chat**: (Future) Discord/Slack community
 
 ### Staying Informed
@@ -657,4 +657,4 @@ All contributors are recognized in:
 
 Don't hesitate to ask! Open a discussion or comment on an issue. We're here to help.
 
-**Thank you for contributing to Smart Commit!** ✓
+**Thank you for contributing to Git Changelist Manager!** ✓

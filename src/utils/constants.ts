@@ -3,31 +3,31 @@
  */
 
 /** Extension identifier */
-export const EXTENSION_ID = 'git-change-lists';
+export const EXTENSION_ID = 'git-changelist-manager';
 
 /** View identifiers */
-export const VIEW_ID = 'gitChangeLists.changeLists';
+export const VIEW_ID = 'gitChangelistManager.changelists';
 
 /** Command identifiers */
 export const COMMANDS = {
-  CREATE_LIST: 'gitChangeLists.createList',
-  DELETE_LIST: 'gitChangeLists.deleteList',
-  RENAME_LIST: 'gitChangeLists.renameList',
-  SET_ACTIVE_LIST: 'gitChangeLists.setActiveList',
-  MOVE_TO_LIST: 'gitChangeLists.moveToList',
-  COMMIT_LIST: 'gitChangeLists.commitList',
-  STAGE_LIST: 'gitChangeLists.stageList',
-  TOGGLE_VIEW_MODE: 'gitChangeLists.toggleViewMode',
-  APPLY_PATCH: 'gitChangeLists.applyPatch',
-  CREATE_PATCH: 'gitChangeLists.createPatch',
-  REFRESH: 'gitChangeLists.refresh',
-  GUARDED_COMMIT: 'gitChangeLists.guardedCommit',
-  SET_LIST_COLOR: 'gitChangeLists.setListColor',
+  CREATE_LIST: 'gitChangelistManager.createList',
+  DELETE_LIST: 'gitChangelistManager.deleteList',
+  RENAME_LIST: 'gitChangelistManager.renameList',
+  SET_ACTIVE_LIST: 'gitChangelistManager.setActiveList',
+  MOVE_TO_LIST: 'gitChangelistManager.moveToList',
+  COMMIT_LIST: 'gitChangelistManager.commitList',
+  STAGE_LIST: 'gitChangelistManager.stageList',
+  TOGGLE_VIEW_MODE: 'gitChangelistManager.toggleViewMode',
+  APPLY_PATCH: 'gitChangelistManager.applyPatch',
+  CREATE_PATCH: 'gitChangelistManager.createPatch',
+  REFRESH: 'gitChangelistManager.refresh',
+  GUARDED_COMMIT: 'gitChangelistManager.guardedCommit',
+  SET_LIST_COLOR: 'gitChangelistManager.setListColor',
 } as const;
 
 /** Configuration keys */
 export const CONFIG = {
-  SECTION: 'gitChangeLists',
+  SECTION: 'gitChangelistManager',
   DEFAULT_VIEW_MODE: 'defaultViewMode',
   SHOW_STATUS_BAR: 'showStatusBar',
   CONFIRM_DELETE_NON_EMPTY: 'confirmDeleteNonEmpty',
@@ -40,16 +40,16 @@ export const CONFIG = {
 
 /** Storage keys */
 export const STORAGE_KEYS = {
-  CHANGE_LIST_STATE: 'gitChangeLists.changeListState',
-  VIEW_MODE: 'gitChangeLists.viewMode',
-  EXPANSION_STATE: 'gitChangeLists.expansionState',
+  CHANGE_LIST_STATE: 'gitChangelistManager.changeListState',
+  VIEW_MODE: 'gitChangelistManager.viewMode',
+  EXPANSION_STATE: 'gitChangelistManager.expansionState',
 } as const;
 
 /** Context keys for when clauses */
 export const CONTEXT_KEYS = {
   LIST_IS_DEFAULT: 'listIsDefault',
   LIST_IS_ACTIVE: 'listIsActive',
-  HAS_CHANGES: 'gitChangeLists.hasChanges',
+  HAS_CHANGES: 'gitChangelistManager.hasChanges',
 } as const;
 
 /** Default change list name */

@@ -10,8 +10,10 @@ vsc-extension-quickstart.md
 **/*.ts
 !out/**/*.js
 node_modules/**
+pnpm-lock.yaml
+docs/**
 CONCEPT.md
 BLUEPRINT.md
 OVERVIEW.md
 *.png
-!resources/**/*.png
+!static/**/*.png

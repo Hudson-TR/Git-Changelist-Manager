@@ -1,6 +1,6 @@
-# Smart Commit Features
+# Git Changelist Manager Features
 
-Comprehensive documentation of all features available in Smart Commit v1.0.0.
+Comprehensive documentation of all features available in Git Changelist Manager v1.0.0.
 
 ---
 
@@ -22,16 +22,16 @@ Comprehensive documentation of all features available in Smart Commit v1.0.0.
 
 ## Change List Management
 
-Change lists are the core organizational unit in Smart Commit. They allow you to group related file changes together, independent of Git's staging area.
+Change lists are the core organizational unit in Git Changelist Manager. They allow you to group related file changes together, independent of Git's staging area.
 
 ### Creating Change Lists
 
 Create as many change lists as you need to organize your work:
 
 **Methods:**
-1. **Via View Header**: Click the **+** icon in the Change Lists view header
-2. **Via Context Menu**: Right-click in empty space → **Create Change List**
-3. **Via Command Palette**: `Smart Commit: Create Change List`
+1. **Via View Header**: Click the **+** icon in the Changelists view header
+2. **Via Context Menu**: Right-click in empty space → **Create Changelist**
+3. **Via Command Palette**: `Git Changelist Manager: Create Changelist`
 
 **Name Requirements:**
 - Must be unique within the workspace
@@ -40,7 +40,7 @@ Create as many change lists as you need to organize your work:
 - Recommended: Use descriptive names like "Feature: Authentication" or "Bugfix: Login validation"
 
 **Result:**
-- New list appears in the Change Lists view
+- New list appears in the Changelists view
 - If `autoActivateNew` is enabled (default), the new list becomes active automatically
 - Empty lists are shown with a "0 files" indicator
 
@@ -48,7 +48,7 @@ Create as many change lists as you need to organize your work:
 
 Change lists can be renamed at any time:
 
-**Method:** Right-click a change list → **Rename Change List**
+**Method:** Right-click a change list → **Rename Changelist**
 
 **Behavior:**
 - All file associations are preserved (internal ID remains stable)
@@ -60,7 +60,7 @@ Change lists can be renamed at any time:
 
 Remove change lists you no longer need:
 
-**Method:** Right-click a change list → **Delete Change List**
+**Method:** Right-click a change list → **Delete Changelist**
 
 **Safety Features:**
 - **Non-empty lists**: Prompt for confirmation if `confirmDeleteNonEmpty` is enabled (default)
@@ -79,7 +79,7 @@ The **active change list** is a special designation that determines where newly 
 #### Setting the Active List
 
 **Methods:**
-1. **Via Context Menu**: Right-click a change list → **Set as Active Change List**
+1. **Via Context Menu**: Right-click a change list → **Set Active Changelist**
 2. **Via Keybinding**: `Ctrl+Shift+L` / `Cmd+Shift+L` (opens quick-pick)
 3. **Via Status Bar**: Click the status bar item showing the current active list
 
@@ -135,7 +135,7 @@ The Default list ensures that:
 
 ## File Organization
 
-Smart Commit provides multiple ways to move files between change lists, catering to different workflow preferences.
+Git Changelist Manager provides multiple ways to move files between change lists, catering to different workflow preferences.
 
 ### Drag-and-Drop
 
@@ -173,10 +173,10 @@ Intuitive direct manipulation for visual thinkers:
 
 Keyboard-friendly alternative to drag-and-drop:
 
-#### Move to Change List
+#### Move to Changelist
 
 1. Right-click a file (or multi-select files and right-click)
-2. Select **Move to Change List**
+2. Select **Move to Changelist**
 3. Choose destination from submenu
 
 **Submenu Contents:**
@@ -200,13 +200,13 @@ When `autoAssignStagedFiles` is enabled (default):
 - Another extension's staging command
 
 **Behavior:**
-- Smart Commit detects the staging operation
+- Git Changelist Manager detects the staging operation
 - File is assigned to the active change list
 - Tree view updates to reflect the assignment
 - Log entry created (visible in debug mode)
 
 **Why This Matters:**
-- Maintains consistency between command-line Git and Smart Commit
+- Maintains consistency between command-line Git and Git Changelist Manager
 - Prevents confusion when switching between workflows
 - Keeps change lists synchronized with Git state
 
@@ -239,7 +239,7 @@ If attempting operations that could conflict:
 
 ## View Modes
 
-Smart Commit supports two presentation modes for change list contents, optimized for different scenarios.
+Git Changelist Manager supports two presentation modes for change list contents, optimized for different scenarios.
 
 ### List Mode (Default)
 
@@ -316,7 +316,7 @@ Files are organized into a prefix tree (trie):
 #### Methods
 
 1. **Via View Header**: Click the tree/list icon button
-2. **Via Command Palette**: `Smart Commit: Toggle List/Tree View`
+2. **Via Command Palette**: `Git Changelist Manager: Toggle List/Tree View`
 
 #### Behavior
 
@@ -350,7 +350,7 @@ All view state is persisted across VS Code sessions:
 
 ## Git Integration
 
-Smart Commit integrates deeply with Git without replacing VS Code's built-in functionality.
+Git Changelist Manager integrates deeply with Git without replacing VS Code's built-in functionality.
 
 ### Real-Time Synchronization
 
@@ -374,14 +374,14 @@ To prevent excessive updates:
 
 1. Git extension detects repository state change
 2. Fires `onDidChange` event
-3. Smart Commit's `GitService` receives the event
+3. Git Changelist Manager's `GitService` receives the event
 4. `ChangeListManager` recomputes file assignments
 5. `TreeDataProvider` refreshes the view
 6. UI updates instantly
 
 ### Git File Status Mapping
 
-Smart Commit displays Git status for each file:
+Git Changelist Manager displays Git status for each file:
 
 #### Supported Statuses
 
@@ -403,11 +403,11 @@ Smart Commit displays Git status for each file:
 
 ### Staging Workflow
 
-Smart Commit enhances VS Code's native staging workflow:
+Git Changelist Manager enhances VS Code's native staging workflow:
 
-#### Stage Change List
+#### Stage Changelist
 
-**Command**: Right-click a change list → **Stage Change List**
+**Command**: Right-click a change list → **Stage Changelist**
 
 **Behavior:**
 1. All files in the list are staged using `git add`
@@ -427,14 +427,14 @@ Users can still stage files individually:
 - Via command line: `git add file.ts`
 - Via SCM view: Click the + icon
 
-**Smart Commit's Response:**
+**Git Changelist Manager's Response:**
 - Detects the staging operation
 - Assigns file to active change list (if enabled)
 - Updates view to show staged status
 
 ### Post-Commit Cleanup
 
-After a successful commit, Smart Commit automatically cleans up:
+After a successful commit, Git Changelist Manager automatically cleans up:
 
 #### Detection Method
 
@@ -458,7 +458,7 @@ After a successful commit, Smart Commit automatically cleans up:
 
 ### Compatibility
 
-Smart Commit works alongside other Git tools:
+Git Changelist Manager works alongside other Git tools:
 
 #### Command-Line Git
 
@@ -482,7 +482,7 @@ Smart Commit works alongside other Git tools:
 
 ### Patch Management
 
-Smart Commit allows you to share code snippets or transfer changes between lists using standard Git patches.
+Git Changelist Manager allows you to share code snippets or transfer changes between lists using standard Git patches.
 
 #### Creating Patches
 
@@ -506,7 +506,7 @@ Import changes from a patch file directly into a specific change list.
 
 **Methods:**
 1. Right-click a change list -> **Apply Patch...**
-   - Or use Command Palette: `Smart Commit: Apply Patch`
+   - Or use Command Palette: `Git Changelist Manager: Apply Patch`
 2. Choose source:
    - **From Clipboard**: Pastes patch content from clipboard
    - **From File**: Select a `.patch` or `.diff` file from disk
@@ -593,7 +593,7 @@ This might mix unrelated changes in a single commit.
 
 #### Via Command Palette
 
-**Command:** `Smart Commit: Commit (with Guard)`
+**Command:** `Git Changelist Manager: Commit (with Guard)`
 
 **Behavior:**
 - Runs validation regardless of `interceptCommit` setting
@@ -604,14 +604,14 @@ This might mix unrelated changes in a single commit.
 
 #### Enable/Disable Guard
 
-**Setting:** `smartCommit.commitGuard.enabled`
+**Setting:** `gitChangelistManager.commitGuard.enabled`
 - **Type:** Boolean
 - **Default:** `true`
 - **Effect:** When `false`, guard is completely bypassed
 
 #### Intercept Native Commit
 
-**Setting:** `smartCommit.commitGuard.interceptCommit`
+**Setting:** `gitChangelistManager.commitGuard.interceptCommit`
 - **Type:** Boolean
 - **Default:** `false`
 - **Effect:** When `true`, intercepts `Ctrl+Enter` commits
@@ -627,7 +627,7 @@ This might mix unrelated changes in a single commit.
 
 **Workaround:**
 - Use `Ctrl+Enter` / `Cmd+Enter` keybinding instead
-- Or use Command Palette: `Smart Commit: Commit (with Guard)`
+- Or use Command Palette: `Git Changelist Manager: Commit (with Guard)`
 - Train yourself to avoid the button when guard is needed
 
 #### Partial Staging
@@ -670,7 +670,7 @@ Status bar updates immediately when:
 
 ### Configuration
 
-**Setting:** `smartCommit.showStatusBar`
+**Setting:** `gitChangelistManager.showStatusBar`
 - **Type:** Boolean
 - **Default:** `true`
 - **Effect:** When `false`, status bar item is hidden
@@ -690,7 +690,7 @@ Status bar updates immediately when:
 
 ## User Interface
 
-Smart Commit's UI is integrated into VS Code's Source Control Management (SCM) panel.
+Git Changelist Manager's UI is integrated into VS Code's Source Control Management (SCM) panel.
 
 ### Tree View
 
@@ -703,7 +703,7 @@ SOURCE CONTROL
   ├─ Git (native)
   │  ├─ Staged Changes
   │  └─ Changes
-  └─ Change Lists (Smart Commit)
+  └─ Change Lists (Git Changelist Manager)
      ├─ Feature A (3 files)
      ├─ Default (2 files)
      └─ Bugfix B (1 file)
@@ -729,19 +729,19 @@ Right-click menus provide quick access to operations:
 
 Available when right-clicking a change list header:
 
-- **Set as Active Change List** (if not already active)
-- **Stage Change List**
-- **Commit Change List** (deprecated, may be removed)
+- **Set Active Changelist** (if not already active)
+- **Stage Changelist**
+- **Commit Changelist** (deprecated, may be removed)
 - **Apply Patch** (placeholder, not yet implemented)
 - **Create Patch** (placeholder, not yet implemented)
-- **Rename Change List**
-- **Delete Change List** (disabled for Default list)
+- **Rename Changelist**
+- **Delete Changelist** (disabled for Default list)
 
 #### File Context Menu
 
 Available when right-clicking a file:
 
-- **Move to Change List** (submenu with destinations)
+- **Move to Changelist** (submenu with destinations)
 - **Open File**
 - **Open Diff** (shows changes compared to HEAD)
 - **Discard Changes** (via Git)
@@ -753,13 +753,13 @@ Located in the view header:
 
 | Icon | Command | Description |
 |------|---------|-------------|
-| ➕ | Create Change List | Opens name input |
+| ➕ | Create Changelist | Opens name input |
 | 🔄 | Toggle View Mode | Switch between list and tree |
 | 🔃 | Refresh | Manually refresh view |
 
 ### Icons and Theming
 
-Smart Commit uses VS Code's built-in icons:
+Git Changelist Manager uses VS Code's built-in icons:
 - **Folder icon**: Change list containers
 - **File icons**: Based on file extension (via icon theme)
 - **Git status icons**: Standard Git decorations
@@ -774,13 +774,13 @@ Smart Commit uses VS Code's built-in icons:
 
 ## Event-Driven Architecture
 
-Smart Commit is built on an event-driven architecture for reactive UI updates.
+Git Changelist Manager is built on an event-driven architecture for reactive UI updates.
 
 ### Event Sources
 
 #### Git Extension Events
 
-| Event | Source | Trigger | Smart Commit Response |
+| Event | Source | Trigger | Git Changelist Manager Response |
 |-------|--------|---------|----------------------|
 | `onDidChange` | Git repository | File changes, Git operations | Refresh change lists, reassign files |
 | `onDidStageFiles` | Git API | Files staged | Auto-assign to active list (if enabled) |
@@ -796,7 +796,7 @@ Smart Commit is built on an event-driven architecture for reactive UI updates.
 
 #### Configuration Events
 
-| Event | Source | Trigger | Smart Commit Response |
+| Event | Source | Trigger | Git Changelist Manager Response |
 |-------|--------|---------|----------------------|
 | `onDidChangeConfiguration` | VS Code | Settings changed | Re-read config, apply changes |
 
@@ -808,7 +808,7 @@ User stages a file via command line:
 2. Git modifies the index
 3. Git extension detects index change
 4. Fires `onDidChange` event
-5. Smart Commit's `GitService` receives event
+5. Git Changelist Manager's `GitService` receives event
 6. Detects `src/app.ts` is newly staged
 7. Checks if file is in a change list (not assigned yet)
 8. Gets active change list from `ChangeListManager`
@@ -836,7 +836,7 @@ All event listeners are properly disposed:
 
 ## State Persistence
 
-Smart Commit persists all change list state across VS Code sessions.
+Git Changelist Manager persists all change list state across VS Code sessions.
 
 ### Storage Mechanism
 
@@ -915,7 +915,7 @@ Stale data is cleaned up:
 
 ## Multi-Root Workspace Support
 
-Smart Commit is prepared for multi-root workspaces, though support is currently minimal.
+Git Changelist Manager is prepared for multi-root workspaces, though support is currently minimal.
 
 ### Current Status
 
@@ -941,7 +941,7 @@ Each workspace folder has its own:
 #### Repository Detection
 
 On activation:
-1. Smart Commit queries all workspace folders
+1. Git Changelist Manager queries all workspace folders
 2. For each folder, checks if a Git repository exists
 3. Creates isolated context for each repository
 4. Registers separate tree views (if multiple roots)
@@ -1007,18 +1007,18 @@ For repositories with 1000+ files:
 
 - **Commit button interception**: Not possible with stable API
 - **Partial staging detection**: Limited hunk-level introspection
-- **Custom SCM providers**: Not used (Smart Commit extends Git, doesn't replace it)
+- **Custom SCM providers**: Not used (Git Changelist Manager extends Git, doesn't replace it)
 
 #### Git Extension Dependency
 
 - **Requires `vscode.git`**: Built-in Git extension must be active
-- **No fallback**: If Git extension is disabled, Smart Commit won't work
+- **No fallback**: If Git extension is disabled, Git Changelist Manager won't work
 
 ---
 
 ## Summary
 
-Smart Commit v0.0.1 delivers a robust foundation for change list management:
+Git Changelist Manager v0.0.1 delivers a robust foundation for change list management:
 
 - ✓ **Complete core functionality**: All essential features implemented
 - ✓ **Stable and tested**: Works across 7 different editors
@@ -1032,6 +1032,6 @@ Smart Commit v0.0.1 delivers a robust foundation for change list management:
 - See [CONFIGURATION.md](CONFIGURATION.md) for settings reference
 - See [Roadmap](../README.md#roadmap) for upcoming features
 
-Have a feature request? [Open an issue](https://github.com/maxinne-dev/vscode-smart-commit/issues)!
+Have a feature request? [Open an issue](https://github.com/Hudson-TR/Git-Changelist-Manager/issues)!
 
-- [GitHub Repository](https://github.com/maxinne-dev/vscode-smart-commit)
+- [GitHub Repository](https://github.com/Hudson-TR/Git-Changelist-Manager)

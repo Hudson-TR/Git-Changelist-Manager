@@ -1,5 +1,5 @@
 /**
- * Type exports for Git Change Lists extension
+ * Type exports for Git Changelist Manager extension
  */
 
 export * from './changeList';

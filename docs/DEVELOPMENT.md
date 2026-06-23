@@ -1,6 +1,6 @@
-# Smart Commit Development Guide
+# Git Changelist Manager Development Guide
 
-Comprehensive guide for developers working on Smart Commit.
+Comprehensive guide for developers working on Git Changelist Manager.
 
 ---
 
@@ -48,8 +48,8 @@ tsc --version     # 5.x.x
 ### Clone Repository
 
 ```bash
-git clone https://github.com/maxinne-dev/vscode-smart-commit.git
-cd vscode-smart-commit
+git clone https://github.com/Hudson-TR/Git-Changelist-Manager.git
+cd Git-Changelist-Manager
 ```
 
 ### Install Dependencies
@@ -81,7 +81,7 @@ code .
 ## Project Structure
 
 ```
-vscode-smart-commit/
+vscode-git-changelist-manager/
 ├── .vscode/                  # VS Code configuration
 │   ├── launch.json          # Debug configurations
 │   ├── settings.json        # Editor settings
@@ -423,7 +423,7 @@ No need to restart; reload picks up recompiled code.
 
 3. **Test Changes**
    - Interact with extension
-   - Check Output → Smart Commit for logs
+   - Check Output → Git Changelist Manager for logs
    - Verify behavior
 
 4. **Iterate**
@@ -481,7 +481,7 @@ logger.event('Git', 'Commit detected', { fileCount });
 **View Logs:**
 
 1. Output panel: `Ctrl+Shift+U` / `Cmd+Shift+U`
-2. Select "Smart Commit" from dropdown
+2. Select "Git Changelist Manager" from dropdown
 
 ### Developer Tools
 
@@ -508,9 +508,9 @@ Add command contribution:
 
 ```json
 {
-  "command": "smartCommit.duplicateList",
+  "command": "gitChangelistManager.duplicateList",
   "title": "Duplicate Change List",
-  "category": "Smart Commit",
+  "category": "Git Changelist Manager",
   "icon": "$(copy)"
 }
 ```
@@ -519,8 +519,8 @@ Add to context menu:
 
 ```json
 {
-  "command": "smartCommit.duplicateList",
-  "when": "view == smartCommit.changeLists && viewItem =~ /^changeList/",
+  "command": "gitChangelistManager.duplicateList",
+  "when": "view == gitChangelistManager.changelists && viewItem =~ /^changeList/",
   "group": "3_edit@3"
 }
 ```
@@ -608,7 +608,7 @@ In `src/utils/constants.ts`:
 ```typescript
 export const COMMANDS = {
   // ... existing commands ...
-  DUPLICATE_LIST: 'smartCommit.duplicateList',
+  DUPLICATE_LIST: 'gitChangelistManager.duplicateList',
 } as const;
 ```
 
@@ -706,12 +706,12 @@ npm run test:e2e
 npm run package
 ```
 
-Output: `smart-commit-0.0.1.vsix`
+Output: `git-changelist-manager-0.0.1.vsix`
 
 ### Installing VSIX Locally
 
 ```bash
-code --install-extension smart-commit-0.0.1.vsix
+code --install-extension git-changelist-manager-0.0.1.vsix
 ```
 
 ### Publishing to Marketplace
@@ -754,7 +754,7 @@ npm version major
 **Solutions:**
 1. Check compilation errors: `npm run compile`
 2. Check activation events in `package.json`
-3. View Output → Smart Commit for errors
+3. View Output → Git Changelist Manager for errors
 4. Restart Development Host
 
 ---
@@ -799,7 +799,7 @@ npm version major
 - **Read Architecture Docs**: [OVERVIEW.md](../OVERVIEW.md), [BLUEPRINT.md](../BLUEPRINT.md)
 - **Review Code**: Browse `src/` to understand implementation
 - **Contribute**: See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines
-- **Ask Questions**: [GitHub Discussions](https://github.com/maxinne-dev/vscode-smart-commit/discussions)
+- **Ask Questions**: [GitHub Discussions](https://github.com/Hudson-TR/Git-Changelist-Manager/discussions)
 
 ---
 

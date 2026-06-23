@@ -25,15 +25,15 @@ export function registerCommands(
   disposables.push(
     vscode.commands.registerCommand(COMMANDS.CREATE_LIST, async () => {
       const name = await vscode.window.showInputBox({
-        prompt: 'Enter a name for the new change list',
-        placeHolder: 'Change list name',
+        prompt: 'Enter a name for the new changelist',
+        placeHolder: 'Changelist name',
         validateInput: (value) => {
           if (!value || value.trim().length === 0) {
             return 'Name cannot be empty';
           }
           const lists = changeListManager.getLists();
           if (lists.some((list) => list.name === value.trim())) {
-            return 'A change list with this name already exists';
+            return 'A changelist with this name already exists';
           }
           return null;
         },
@@ -43,9 +43,9 @@ export function registerCommands(
         try {
           const setActive = configService.getAutoActivateNew();
           await changeListManager.create(name.trim(), undefined, undefined, setActive);
-          vscode.window.showInformationMessage(`Change list "${name}" created`);
+          vscode.window.showInformationMessage(`Changelist "${name}" created`);
         } catch (error) {
-          vscode.window.showErrorMessage(`Failed to create change list: ${error}`);
+          vscode.window.showErrorMessage(`Failed to create changelist: ${error}`);
         }
       }
     })
@@ -61,14 +61,14 @@ export function registerCommands(
       const list = node.changeList;
 
       if (list.isDefault) {
-        vscode.window.showWarningMessage('Cannot delete the default change list');
+        vscode.window.showWarningMessage('Cannot delete the default changelist');
         return;
       }
 
       // Confirm deletion if non-empty and configured to do so
       if (node.fileCount > 0 && configService.getConfirmDeleteNonEmpty()) {
         const confirm = await vscode.window.showWarningMessage(
-          `Delete change list "${list.name}"? It contains ${node.fileCount} file(s) that will be moved to the Default list.`,
+          `Delete changelist "${list.name}"? It contains ${node.fileCount} file(s) that will be moved to the Default list.`,
           { modal: true },
           'Delete'
         );
@@ -80,9 +80,9 @@ export function registerCommands(
 
       try {
         await changeListManager.delete(list.id);
-        vscode.window.showInformationMessage(`Change list "${list.name}" deleted`);
+        vscode.window.showInformationMessage(`Changelist "${list.name}" deleted`);
       } catch (error) {
-        vscode.window.showErrorMessage(`Failed to delete change list: ${error}`);
+        vscode.window.showErrorMessage(`Failed to delete changelist: ${error}`);
       }
     })
   );
@@ -97,7 +97,7 @@ export function registerCommands(
       const list = node.changeList;
 
       const newName = await vscode.window.showInputBox({
-        prompt: 'Enter a new name for the change list',
+        prompt: 'Enter a new name for the changelist',
         value: list.name,
         validateInput: (value) => {
           if (!value || value.trim().length === 0) {
@@ -105,7 +105,7 @@ export function registerCommands(
           }
           const lists = changeListManager.getLists();
           if (lists.some((l) => l.id !== list.id && l.name === value.trim())) {
-            return 'A change list with this name already exists';
+            return 'A changelist with this name already exists';
           }
           return null;
         },
@@ -115,7 +115,7 @@ export function registerCommands(
         try {
           await changeListManager.rename(list.id, newName.trim());
         } catch (error) {
-          vscode.window.showErrorMessage(`Failed to rename change list: ${error}`);
+          vscode.window.showErrorMessage(`Failed to rename changelist: ${error}`);
         }
       }
     })
@@ -140,7 +140,7 @@ export function registerCommands(
           }));
 
         const selected = await vscode.window.showQuickPick(items, {
-          placeHolder: 'Select a change list to set as active',
+          placeHolder: 'Select a changelist to set as active',
         });
 
         if (selected) {
@@ -152,7 +152,7 @@ export function registerCommands(
         try {
           await changeListManager.setActive(listId);
         } catch (error) {
-          vscode.window.showErrorMessage(`Failed to set active change list: ${error}`);
+          vscode.window.showErrorMessage(`Failed to set active changelist: ${error}`);
         }
       }
     })
@@ -175,7 +175,7 @@ export function registerCommands(
         }));
 
         const selected = await vscode.window.showQuickPick(items, {
-          placeHolder: 'Select a change list to set color',
+          placeHolder: 'Select a changelist to set color',
         });
 
         if (selected) {
@@ -243,7 +243,7 @@ export function registerCommands(
       const lists = changeListManager.getLists();
       const items = [
         {
-          label: '$(add) Create New Change List...',
+          label: '$(add) Create New Changelist...',
           listId: '__new__',
         },
         ...lists
@@ -268,8 +268,8 @@ export function registerCommands(
       if (selected.listId === '__new__') {
         // Create new list
         const name = await vscode.window.showInputBox({
-          prompt: 'Enter a name for the new change list',
-          placeHolder: 'Change list name',
+          prompt: 'Enter a name for the new changelist',
+          placeHolder: 'Changelist name',
         });
 
         if (!name) {
@@ -280,7 +280,7 @@ export function registerCommands(
           const newList = await changeListManager.create(name.trim(), undefined, undefined, false);
           targetListId = newList.id;
         } catch (error) {
-          vscode.window.showErrorMessage(`Failed to create change list: ${error}`);
+          vscode.window.showErrorMessage(`Failed to create changelist: ${error}`);
           return;
         }
       } else {
@@ -306,7 +306,7 @@ export function registerCommands(
       const files = await changeListManager.getFilesForList(list.id);
 
       if (files.length === 0) {
-        vscode.window.showInformationMessage(`Change list "${list.name}" is empty`);
+        vscode.window.showInformationMessage(`Changelist "${list.name}" is empty`);
         return;
       }
 
@@ -356,7 +356,7 @@ export function registerCommands(
       const files = await changeListManager.getFilesForList(list.id);
 
       if (files.length === 0) {
-        vscode.window.showInformationMessage(`Change list "${list.name}" is empty`);
+        vscode.window.showInformationMessage(`Changelist "${list.name}" is empty`);
         return;
       }
 
@@ -398,7 +398,7 @@ export function registerCommands(
         }));
 
         const selected = await vscode.window.showQuickPick(items, {
-          placeHolder: 'Select change list to apply patch to',
+          placeHolder: 'Select changelist to apply patch to',
         });
 
         if (selected) {

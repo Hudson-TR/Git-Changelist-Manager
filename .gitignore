@@ -1,6 +1,24 @@
+# Build output
 out/
-node_modules/
-.vscode-test/
 *.vsix
+
+# Dependencies
+node_modules/
+
+# Logs
+*.log
+pnpm-debug.log*
+
+# OS
 .DS_Store
 Thumbs.db
+
+# Environment
+.env
+.env.*
+
+# VS Code extension tests
+.vscode-test/
+
+# Legacy npm lockfile (project uses pnpm)
+package-lock.json
