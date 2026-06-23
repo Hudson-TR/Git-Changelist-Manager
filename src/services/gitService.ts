@@ -2,6 +2,7 @@ import * as vscode from 'vscode';
 import * as cp from 'child_process';
 import * as path from 'path';
 import type { GitExtension, Git, Repository, Change } from '../types/git';
+import { GitFileStatus } from '../types';
 import { REFRESH_DEBOUNCE_MS } from '../utils/constants';
 import { debounce } from '../utils/helpers';
 import { logger } from '../utils/logger';
@@ -376,6 +377,70 @@ export class GitService implements vscode.Disposable {
       return await this.repository.diffWithHEAD(uri.fsPath);
     } catch {
       return '';
+    }
+  }
+
+  /**
+   * Get a diff suitable for an inline preview tooltip.
+   *
+   * Strategy by status:
+   * - Untracked: returns '' (caller reads the file directly to avoid mutating
+   *   the index with `git add -N`).
+   * - Modified/Deleted/Renamed/Conflict: working tree vs HEAD.
+   * - Added: working tree vs HEAD, falling back to the staged (index) diff.
+   *
+   * Always returns a string; never throws.
+   */
+  async getDiffPreview(uri: vscode.Uri, status: GitFileStatus): Promise<string> {
+    if (!this.repository) {
+      return '';
+    }
+
+    // Untracked files are not known to git; the caller reads them from disk.
+    if (status === GitFileStatus.Untracked) {
+      return '';
+    }
+
+    try {
+      let diff = await this.repository.diffWithHEAD(uri.fsPath);
+
+      // Newly added files that are only staged won't show against the working
+      // tree; fall back to the index-vs-HEAD diff.
+      if ((!diff || diff.trim().length === 0)) {
+        try {
+          diff = await this.repository.diffIndexWithHEAD(uri.fsPath);
+        } catch {
+          // ignore; fall through to whatever we have
+        }
+      }
+
+      return diff ?? '';
+    } catch (error) {
+      logger.debug('GitService: getDiffPreview failed', {
+        file: uri.fsPath,
+        error: error instanceof Error ? error.message : String(error),
+      });
+      return '';
+    }
+  }
+
+  /**
+   * Build a `git:`-scheme URI pointing at the version of `uri` at the given
+   * ref (e.g. 'HEAD'). Used to open a comparison view. Returns undefined if the
+   * Git API is unavailable.
+   */
+  getHeadUri(uri: vscode.Uri, ref = 'HEAD'): vscode.Uri | undefined {
+    if (!this.gitApi) {
+      return undefined;
+    }
+    try {
+      return this.gitApi.toGitUri(uri, ref);
+    } catch (error) {
+      logger.debug('GitService: toGitUri failed', {
+        file: uri.fsPath,
+        error: error instanceof Error ? error.message : String(error),
+      });
+      return undefined;
     }
   }
 

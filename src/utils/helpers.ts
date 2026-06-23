@@ -187,3 +187,54 @@ export function formatFileCount(count: number): string {
   }
   return `${count} files`;
 }
+
+/**
+ * Determine whether a file matches a free-text filter query.
+ *
+ * Matching is case-insensitive. The query is split on whitespace into terms,
+ * and ALL terms must be found (AND semantics) in either the file name or the
+ * relative path. An empty/whitespace-only query matches everything.
+ *
+ * @param relativePath - Path relative to the workspace root (e.g. "src/utils/helpers.ts")
+ * @param fileName - Just the file name (e.g. "helpers.ts")
+ * @param query - The user-provided filter string
+ */
+export function matchesChangelistFilter(
+  relativePath: string,
+  fileName: string,
+  query: string
+): boolean {
+  const trimmed = query.trim();
+  if (trimmed.length === 0) {
+    return true;
+  }
+
+  const haystackPath = relativePath.toLowerCase();
+  const haystackName = fileName.toLowerCase();
+  const terms = trimmed.toLowerCase().split(/\s+/).filter(Boolean);
+
+  // AND semantics: every term must match either the name or the relative path
+  return terms.every(
+    (term) => haystackName.includes(term) || haystackPath.includes(term)
+  );
+}
+
+/**
+ * Truncate a label to a maximum length, appending an ellipsis when cut.
+ * Short labels are returned unchanged.
+ *
+ * @param label - The label to truncate
+ * @param maxLength - Maximum number of characters (including the ellipsis)
+ */
+export function truncateLabel(label: string, maxLength: number): string {
+  if (maxLength <= 0) {
+    return '';
+  }
+  if (label.length <= maxLength) {
+    return label;
+  }
+  if (maxLength === 1) {
+    return '…';
+  }
+  return `${label.substring(0, maxLength - 1)}…`;
+}

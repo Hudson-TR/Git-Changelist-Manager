@@ -1,5 +1,10 @@
 import * as vscode from 'vscode';
-import { CONFIG } from '../utils/constants';
+import {
+  CONFIG,
+  DEFAULT_DIFF_PREVIEW_MAX_LINES,
+  MIN_DIFF_PREVIEW_MAX_LINES,
+  MAX_DIFF_PREVIEW_MAX_LINES,
+} from '../utils/constants';
 import type { ViewMode } from '../types';
 
 /**
@@ -67,6 +72,38 @@ export class ConfigService {
    */
   getDebugLoggingEnabled(): boolean {
     return this.getConfig().get<boolean>(CONFIG.DEBUG_LOGGING, false);
+  }
+
+  /**
+   * Get whether inline diff previews are shown on file hover
+   */
+  getInlineDiffPreviewEnabled(): boolean {
+    return this.getConfig().get<boolean>(CONFIG.INLINE_DIFF_PREVIEW_ENABLED, true);
+  }
+
+  /**
+   * Get the maximum number of diff lines shown in an inline preview.
+   * The configured value is clamped to the supported range.
+   */
+  getInlineDiffPreviewMaxLines(): number {
+    const raw = this.getConfig().get<number>(
+      CONFIG.INLINE_DIFF_PREVIEW_MAX_LINES,
+      DEFAULT_DIFF_PREVIEW_MAX_LINES
+    );
+    if (typeof raw !== 'number' || Number.isNaN(raw)) {
+      return DEFAULT_DIFF_PREVIEW_MAX_LINES;
+    }
+    return Math.min(
+      MAX_DIFF_PREVIEW_MAX_LINES,
+      Math.max(MIN_DIFF_PREVIEW_MAX_LINES, Math.floor(raw))
+    );
+  }
+
+  /**
+   * Get whether empty changelists are hidden while a filter is active
+   */
+  getFilterHideEmptyLists(): boolean {
+    return this.getConfig().get<boolean>(CONFIG.FILTER_HIDE_EMPTY_LISTS, true);
   }
 
   /**

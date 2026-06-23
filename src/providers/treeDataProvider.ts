@@ -11,9 +11,11 @@ import {
 import { ChangeListManager } from '../services/changeListManager';
 import { GitService } from '../services/gitService';
 import { ConfigService } from '../services/configService';
+import { DiffPreviewService } from '../services/diffPreviewService';
 import {
   CONTEXT_VALUES,
   STORAGE_KEYS,
+  COMMANDS,
 } from '../utils/constants';
 import {
   sortChangeLists,
@@ -21,6 +23,7 @@ import {
   formatFileCount,
   getFileName,
   normalizePath,
+  matchesChangelistFilter,
 } from '../utils/helpers';
 import { logger } from '../utils/logger';
 
@@ -34,11 +37,13 @@ export class ChangeListTreeDataProvider
 
   private viewMode: ViewMode;
   private cachedChanges: Map<string, TrackedChange[]> = new Map();
+  private filterQuery = '';
 
   constructor(
     private readonly changeListManager: ChangeListManager,
     private readonly gitService: GitService,
-    private readonly configService: ConfigService
+    private readonly configService: ConfigService,
+    private readonly diffPreviewService?: DiffPreviewService
   ) {
     this.viewMode = configService.getDefaultViewMode();
   }
@@ -52,6 +57,7 @@ export class ChangeListTreeDataProvider
       viewMode: this.viewMode,
     });
     this.cachedChanges.clear();
+    this.diffPreviewService?.clearCache();
     this._onDidChangeTreeData.fire(element);
   }
 
@@ -86,6 +92,94 @@ export class ChangeListTreeDataProvider
   }
 
   /**
+   * Set the active filter query and refresh the tree.
+   */
+  setFilterQuery(query: string): void {
+    const next = query ?? '';
+    if (this.filterQuery !== next) {
+      this.filterQuery = next;
+      logger.info('TreeDataProvider: Filter query set', { query: next });
+      this.refresh();
+    }
+  }
+
+  /**
+   * Clear the active filter and refresh the tree.
+   */
+  clearFilter(): void {
+    if (this.filterQuery !== '') {
+      this.filterQuery = '';
+      logger.info('TreeDataProvider: Filter cleared');
+      this.refresh();
+    }
+  }
+
+  /**
+   * Get the current filter query.
+   */
+  getFilterQuery(): string {
+    return this.filterQuery;
+  }
+
+  /**
+   * Whether a non-empty filter is currently active.
+   */
+  hasActiveFilter(): boolean {
+    return this.filterQuery.trim().length > 0;
+  }
+
+  /**
+   * Count the total number of files matching the active filter across all
+   * change lists. Used to drive the tree view's "no results" message.
+   */
+  async countFilterMatches(): Promise<number> {
+    if (!this.hasActiveFilter()) {
+      return 0;
+    }
+    const lists = this.changeListManager.getLists();
+    let total = 0;
+    for (const list of lists) {
+      const files = await this.getFilteredFilesForList(list.id);
+      total += files.length;
+    }
+    return total;
+  }
+
+  /**
+   * Resolve a tree item lazily to attach an inline diff preview tooltip.
+   * Only file nodes are resolved, and only when the feature is enabled.
+   */
+  async resolveTreeItem(
+    item: vscode.TreeItem,
+    element: AnyTreeNode,
+    token: vscode.CancellationToken
+  ): Promise<vscode.TreeItem> {
+    if (element.type !== 'file') {
+      return item;
+    }
+    if (!this.diffPreviewService || !this.configService.getInlineDiffPreviewEnabled()) {
+      return item;
+    }
+    if (token.isCancellationRequested) {
+      return item;
+    }
+
+    try {
+      const tooltip = await this.diffPreviewService.getTooltip(element.change);
+      if (!token.isCancellationRequested && tooltip) {
+        item.tooltip = tooltip;
+      }
+    } catch (error) {
+      logger.debug('TreeDataProvider: resolveTreeItem preview failed', {
+        file: element.change.resourceUri.fsPath,
+        error: error instanceof Error ? error.message : String(error),
+      });
+    }
+
+    return item;
+  }
+
+  /**
    * Get tree item for a node
    */
   getTreeItem(element: AnyTreeNode): vscode.TreeItem {
@@ -114,7 +208,7 @@ export class ChangeListTreeDataProvider
 
     // Change list level
     if (element.type === 'changeList') {
-      const files = await this.getFilesForList(element.changeList.id);
+      const files = await this.getFilteredFilesForList(element.changeList.id);
 
       if (this.viewMode === 'list') {
         return this.createFileNodes(files);
@@ -187,9 +281,17 @@ export class ChangeListTreeDataProvider
     const sortedLists = sortChangeLists([...lists]);
 
     const nodes: ChangeListNode[] = [];
+    const filterActive = this.hasActiveFilter();
+    const hideEmpty = filterActive && this.configService.getFilterHideEmptyLists();
 
     for (const list of sortedLists) {
-      const files = await this.getFilesForList(list.id);
+      const files = await this.getFilteredFilesForList(list.id);
+
+      // While filtering, optionally hide lists that have no matching files.
+      if (hideEmpty && files.length === 0) {
+        continue;
+      }
+
       // Calculate counts
       const counts = {
         modified: 0,
@@ -246,6 +348,26 @@ export class ChangeListTreeDataProvider
     const files = await this.changeListManager.getFilesForList(listId);
     this.cachedChanges.set(listId, files);
     return files;
+  }
+
+  /**
+   * Get files for a change list with the active text filter applied.
+   */
+  private async getFilteredFilesForList(listId: string): Promise<TrackedChange[]> {
+    const files = await this.getFilesForList(listId);
+    return this.applyFilter(files);
+  }
+
+  /**
+   * Filter a set of files by the active filter query (no-op when inactive).
+   */
+  private applyFilter(files: TrackedChange[]): TrackedChange[] {
+    if (!this.hasActiveFilter()) {
+      return files;
+    }
+    return files.filter((file) =>
+      matchesChangelistFilter(file.relativePath, getFileName(file.relativePath), this.filterQuery)
+    );
   }
 
   /**
@@ -314,7 +436,7 @@ export class ChangeListTreeDataProvider
    * Get children of a directory node
    */
   private async getDirectoryChildren(dir: DirectoryNode): Promise<AnyTreeNode[]> {
-    const files = await this.getFilesForList(dir.changeListId);
+    const files = await this.getFilteredFilesForList(dir.changeListId);
     const dirPath = normalizePath(dir.path);
 
     const nodes: AnyTreeNode[] = [];
@@ -503,15 +625,17 @@ export class ChangeListTreeDataProvider
     // Set icon based on Git status
     item.iconPath = this.getStatusIcon(node.change.gitStatus);
 
-    // Command to open diff
+    // Clicking a file opens the comparison (diff) view when possible.
     item.command = {
-      command: 'vscode.open',
-      title: 'Open File',
-      arguments: [node.change.resourceUri],
+      command: COMMANDS.OPEN_FILE_DIFF,
+      title: 'Open Changes',
+      arguments: [node],
     };
 
     item.contextValue = CONTEXT_VALUES.FILE;
-    item.tooltip = node.change.relativePath;
+    // NOTE: deliberately leave `tooltip` undefined so VS Code invokes
+    // resolveTreeItem(), which lazily builds the inline diff preview. Setting a
+    // tooltip here would suppress that call.
 
     return item;
   }

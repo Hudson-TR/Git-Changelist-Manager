@@ -9,6 +9,7 @@ Step-by-step guide to using Git Changelist Manager effectively in your workflow.
 - [Getting Started](#getting-started)
 - [Basic Operations](#basic-operations)
 - [Common Workflows](#common-workflows)
+- [Enhanced UI Workflows](#enhanced-ui-workflows)
 - [Advanced Techniques](#advanced-techniques)
 - [Tips and Best Practices](#tips-and-best-practices)
 - [Keyboard Shortcuts Reference](#keyboard-shortcuts-reference)
@@ -495,6 +496,57 @@ Quickly switch between different tasks throughout the day.
 - No mental overhead tracking what belongs where
 - Status bar always shows current context
 - Can resume any task instantly
+
+---
+
+## Enhanced UI Workflows
+
+These workflows use the Enhanced UI features added in v1.2.0.
+
+### Color-Coding Your Lists
+
+Make active work visually distinct:
+
+1. Right-click a change list → **Set Changelist Color**
+2. Choose a color (e.g. **Green** for the feature you're focused on, **Red** for a hotfix)
+3. The list icon is tinted, and if the list is active its color also appears in the status bar
+4. To remove a color, pick **Default (None)**
+
+> Tip: Reserve one color (e.g. Orange) for the read-only "Unversioned Files"
+> list mentally — it already appears highlighted.
+
+### Previewing Changes on Hover
+
+Review edits without leaving the change list view:
+
+1. Hover the mouse over a file in any change list
+2. A tooltip shows a syntax-highlighted diff of the changes
+   - Untracked files show their first lines as added content
+   - Binary files show `Binary file (no preview)`
+3. Adjust how much is shown with
+   `gitChangelistManager.ui.inlineDiffPreview.maxLines` (5–50), or turn the
+   feature off with `gitChangelistManager.ui.inlineDiffPreview.enabled`
+4. **Click the file** to open the full side-by-side comparison (working tree vs
+   the last commit). Untracked/new files open directly; deleted files open their
+   committed version.
+
+### Finding Files Across Lists
+
+Locate a file when you're not sure which list it's in:
+
+1. Click the **filter** icon in the view header, or press `Ctrl+Alt+F` / `Cmd+Alt+F`
+2. Type part of a file name or path — add more space-separated terms to narrow
+   results (all terms must match)
+3. Matching lists expand automatically; non-matching lists are hidden
+4. Read the match count in the header message
+5. Click the **clear filter** icon (next to the filter icon) to show everything again
+
+### Switching the Active List from the Status Bar
+
+1. Look at the left side of the status bar — it shows the active list, e.g. `[Feature A]`
+2. Click it to open the quick-pick of all lists (the active one has a checkmark)
+3. Select another list to make it active immediately
+4. Hide the indicator entirely with `gitChangelistManager.showStatusBar: false`
 
 ---
 

@@ -6,7 +6,7 @@
 
 **Git Changelist Manager** brings JetBrains-style changelist management to Visual Studio Code, Cursor, and other VS Code–compatible editors. Organize uncommitted changes into named lists, work on multiple features in parallel, and commit only related changes together.
 
-[![Version](https://img.shields.io/badge/version-1.1.0-blue.svg)](https://github.com/Hudson-TR/Git-Changelist-Manager)
+[![Version](https://img.shields.io/badge/version-1.2.0-blue.svg)](https://github.com/Hudson-TR/Git-Changelist-Manager)
 [![License](https://img.shields.io/badge/license-AGPL--3.0-blue.svg)](LICENSE)
 
 ---
@@ -38,11 +38,15 @@ Git Changelist Manager transforms how you organize Git changes by introducing **
 - ✓ **Custom Named Change Lists** - Create unlimited change lists to organize your work
 - ✓ **Active List Auto-Assignment** - New changes automatically go to your active list
 - ✓ **Drag-and-Drop Organization** - Move files between lists with intuitive gestures
+- ✓ **Change List Colors** - Assign custom colors to lists for visual identification
+- ✓ **Change Count Badges** - See modified/added/deleted/renamed/untracked counts per list
+- ✓ **Inline Diff Preview** - Hover a file to preview its changes without opening it
+- ✓ **Search and Filter** - Filter files across all change lists from the toolbar
 - ✓ **Patch Management** - Generate and apply patches per change list
 - ✓ **List & Tree View Modes** - Switch between flat and hierarchical file displays
 - ✓ **Commit Guard** - Warns when staging files from multiple lists
 - ✓ **Git Integration** - Works seamlessly with VS Code's built-in Git
-- ✓ **Status Bar Integration** - See your active list at a glance
+- ✓ **Status Bar Integration** - See your active list at a glance and switch with a click
 - ✓ **Multi-Editor Support** - Works on VS Code, Cursor, Kiro, Windsurf, Trae, VSCodium, and Antigravity
 
 ---
@@ -96,7 +100,7 @@ If you're a WebStorm, IntelliJ IDEA, or PHPStorm user who's had to switch to VS 
 Or via CLI:
 
 ```bash
-cursor --install-extension git-changelist-manager-1.1.0.vsix
+cursor --install-extension git-changelist-manager-1.2.0.vsix
 ```
 
 ### Verification
@@ -217,6 +221,49 @@ Hierarchical view preserving project structure:
 
 View mode and expansion state persist across sessions.
 
+### Change List Colors
+
+Assign a color to any change list for quick visual identification:
+- Right-click a list → **Set Changelist Color**
+- Choose from Red, Blue, Green, Yellow, Orange, Purple, or **Default (None)**
+- The list icon is tinted with the selected color, and the active list's color
+  is also reflected in the status bar
+- Colors persist across reloads (read-only lists cannot be colored)
+
+### Change Count Badges
+
+Each change list shows a badge summarizing its contents:
+- Total file count (e.g. `5 files`)
+- Per-status breakdown using single-letter codes:
+  `M` modified, `A` added, `D` deleted, `R` renamed, `U` untracked
+- Example: `5 files (2 M, 1 A, 1 D, 1 U)`
+- Counts update automatically as files are staged, moved, or committed
+
+### Inline Diff Preview
+
+Hover over any file in a change list to preview its changes without opening it:
+- Modified/added/deleted/renamed files show a syntax-highlighted `diff`
+- Untracked files show their leading lines as a synthetic "added" diff
+- Binary files show a `Binary file (no preview)` notice
+- Previews are truncated to keep tooltips compact (configurable, default 20 lines)
+- Toggle with `gitChangelistManager.ui.inlineDiffPreview.enabled`; control length
+  with `gitChangelistManager.ui.inlineDiffPreview.maxLines` (5–50)
+
+**Click to open the comparison view:** clicking a file opens VS Code's native
+side-by-side diff (working tree vs HEAD) for modified/renamed files. Untracked
+and newly added files open directly; deleted files open their committed version.
+
+### Search and Filter
+
+Quickly find files across every change list:
+- Click the **filter** icon in the view header or press `Ctrl+Alt+F` / `Cmd+Alt+F`
+- Type one or more space-separated terms — matching is case-insensitive and
+  requires **all** terms to match the file name or path (AND semantics)
+- Matching lists auto-expand; lists with no matches are hidden while filtering
+  (configurable via `gitChangelistManager.ui.filter.hideEmptyLists`)
+- A header message reports the number of matches, or that none were found
+- Clear the filter with the **clear filter** toolbar icon (shown while active)
+
 ### Git Integration
 
 Git Changelist Manager extends VS Code's Git integration without replacing it:
@@ -289,9 +336,12 @@ Git Changelist Manager works with multi-root workspaces:
 | Set Active Changelist | `gitChangelistManager.setActiveList` | Mark a list as active for auto-assignment | `Ctrl+Shift+L` / `Cmd+Shift+L` |
 | Move to Changelist | `gitChangelistManager.moveToList` | Move selected file(s) to another list | `Alt+Shift+M` |
 | Rename Changelist | `gitChangelistManager.renameList` | Rename a change list | — |
+| Set Changelist Color | `gitChangelistManager.setListColor` | Assign a color to a change list | — |
 | Delete Changelist | `gitChangelistManager.deleteList` | Delete a change list (with confirmation) | — |
 | Stage Changelist | `gitChangelistManager.stageList` | Stage all files in a change list | — |
 | Toggle List/Tree View | `gitChangelistManager.toggleViewMode` | Switch between flat and hierarchical views | — |
+| Filter Changelists | `gitChangelistManager.filterChangelists` | Filter files across all change lists | `Ctrl+Alt+F` / `Cmd+Alt+F` |
+| Clear Changelist Filter | `gitChangelistManager.clearFilterChangelists` | Clear the active file filter | — |
 | Commit (with Guard) | `gitChangelistManager.guardedCommit` | Commit with validation of staged files | `Ctrl+Enter` / `Cmd+Enter` (in SCM input) |
 | Refresh Changelists | `gitChangelistManager.refresh` | Manually refresh the view | — |
 
@@ -325,6 +375,9 @@ Git Changelist Manager can be configured via **File → Preferences → Settings
 | `gitChangelistManager.commitGuard.interceptCommit` | `boolean` | `false` | Intercept native commit command (requires restart) |
 | `gitChangelistManager.autoAssignStagedFiles` | `boolean` | `true` | Auto-assign externally staged files to active list |
 | `gitChangelistManager.debug.enableLogging` | `boolean` | `false` | Enable verbose debug logging to output channel |
+| `gitChangelistManager.ui.inlineDiffPreview.enabled` | `boolean` | `true` | Show an inline diff preview when hovering a file |
+| `gitChangelistManager.ui.inlineDiffPreview.maxLines` | `number` | `20` | Max diff lines in the hover preview (5–50) |
+| `gitChangelistManager.ui.filter.hideEmptyLists` | `boolean` | `true` | Hide lists with no matching files while filtering |
 
 ### Example Configuration
 
@@ -405,17 +458,23 @@ Combine with traditional Git workflows:
 
 Git Changelist Manager is actively developed. Here's what's planned for future releases:
 
-### Version 1.0.0 (In Progress)
+### Version 1.0.0 — Enhanced UI ✓ (Completed in 1.2.0)
 
 #### Enhanced UI
-- **Change List Colors**: Assign custom colors to lists for visual identification
-- **Change Count Badges**: Show modified/added/deleted file counts per list
-- **Inline File Previews**: Quick diff preview on hover
-- **Search and Filter**: Find files across all change lists
+- ✓ **Change List Colors**: Assign custom colors to lists for visual identification
+- ✓ **Change Count Badges**: Show modified/added/deleted/renamed/untracked counts per list
+- ✓ **Inline File Previews**: Quick diff preview on hover
+- ✓ **Open Changes on Click**: Click a file to open the native comparison (diff) view
+- ✓ **Search and Filter**: Find files across all change lists
+- ✓ **Status Bar Integration**: Active list indicator with one-click switching
+
+All Enhanced UI goals shipped in **v1.2.0**, which also introduced an automated
+test suite (unit + integration).
 
 ### Version 2.0.0 (Planned)
 
 #### Advanced Git Integration
+- **Partial (Hunk-Level) Changelists**: Assign individual changed lines/hunks of the *same* file to different change lists (JetBrains-style), instead of the current whole-file granularity
 - **Shelving/Stashing**: Temporarily shelve a change list to clean working directory
 - **Branch Integration**: Associate change lists with specific branches
 - **Rebase Support**: Handle change lists during interactive rebases
@@ -503,7 +562,7 @@ For detailed development instructions, see [docs/DEVELOPMENT.md](docs/DEVELOPMEN
 ### Reporting Bugs
 
 When reporting bugs, please include:
-1. Extension version (`1.1.0`)
+1. Extension version (`1.2.0`)
 2. Editor name and version (VS Code, Cursor, etc.)
 3. Steps to reproduce the issue
 4. Expected vs actual behavior

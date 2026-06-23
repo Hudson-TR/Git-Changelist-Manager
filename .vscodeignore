@@ -8,7 +8,16 @@ vsc-extension-quickstart.md
 **/.eslintrc.json
 **/*.map
 **/*.ts
-!out/**/*.js
+out/test/**
+!out/*.js
+!out/commands/**/*.js
+!out/integrations/**/*.js
+!out/providers/**/*.js
+!out/services/**/*.js
+!out/types/**/*.js
+!out/utils/**/*.js
+.mocharc.json
+.cursor/**
 node_modules/**
 pnpm-lock.yaml
 docs/**

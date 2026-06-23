@@ -16,6 +16,7 @@ export interface Git {
   readonly onDidOpenRepository: Event<Repository>;
   readonly onDidCloseRepository: Event<Repository>;
   getRepository(uri: Uri): Repository | null;
+  toGitUri(uri: Uri, ref: string): Uri;
 }
 
 export interface Repository {

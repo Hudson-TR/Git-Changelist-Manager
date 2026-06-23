@@ -3,7 +3,7 @@
   "displayName": "Git Changelist Manager",
   "description": "JetBrains-style changelist management for VS Code — organize changes into named lists for focused commits",
   "icon": "static/icon.png",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "publisher": "Hudson-TR",
   "author": {
     "name": "Hudson Trombeta Ribeiro",
@@ -120,6 +120,24 @@
         "title": "Set Changelist Color",
         "category": "Git Changelist Manager",
         "icon": "$(paintcan)"
+      },
+      {
+        "command": "gitChangelistManager.filterChangelists",
+        "title": "Filter Changelists",
+        "category": "Git Changelist Manager",
+        "icon": "$(filter)"
+      },
+      {
+        "command": "gitChangelistManager.clearFilterChangelists",
+        "title": "Clear Changelist Filter",
+        "category": "Git Changelist Manager",
+        "icon": "$(filter-filled)"
+      },
+      {
+        "command": "gitChangelistManager.openFileDiff",
+        "title": "Open Changes",
+        "category": "Git Changelist Manager",
+        "icon": "$(diff)"
       }
     ],
     "menus": {
@@ -135,9 +153,19 @@
           "group": "navigation@2"
         },
         {
-          "command": "gitChangelistManager.refresh",
+          "command": "gitChangelistManager.filterChangelists",
           "when": "view == gitChangelistManager.changelists",
           "group": "navigation@3"
+        },
+        {
+          "command": "gitChangelistManager.clearFilterChangelists",
+          "when": "view == gitChangelistManager.changelists && gitChangelistManager.filterActive",
+          "group": "navigation@4"
+        },
+        {
+          "command": "gitChangelistManager.refresh",
+          "when": "view == gitChangelistManager.changelists",
+          "group": "navigation@5"
         }
       ],
       "view/item/context": [
@@ -207,6 +235,10 @@
         {
           "command": "gitChangelistManager.createPatch",
           "when": "false"
+        },
+        {
+          "command": "gitChangelistManager.openFileDiff",
+          "when": "false"
         }
       ]
     },
@@ -221,6 +253,12 @@
         "command": "gitChangelistManager.moveToList",
         "key": "alt+shift+m",
         "when": "view == gitChangelistManager.changelists && viewItem == changeListFile"
+      },
+      {
+        "command": "gitChangelistManager.filterChangelists",
+        "key": "ctrl+alt+f",
+        "mac": "cmd+alt+f",
+        "when": "view == gitChangelistManager.changelists"
       },
       {
         "command": "gitChangelistManager.guardedCommit",
@@ -275,6 +313,23 @@
           "type": "boolean",
           "default": false,
           "description": "Enable debug logging to the output channel (verbose)"
+        },
+        "gitChangelistManager.ui.inlineDiffPreview.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show an inline diff preview when hovering over a file in a changelist"
+        },
+        "gitChangelistManager.ui.inlineDiffPreview.maxLines": {
+          "type": "number",
+          "default": 20,
+          "minimum": 5,
+          "maximum": 50,
+          "description": "Maximum number of diff lines to show in the inline preview tooltip"
+        },
+        "gitChangelistManager.ui.filter.hideEmptyLists": {
+          "type": "boolean",
+          "default": true,
+          "description": "Hide changelists with no matching files while a filter is active"
         }
       }
     }
@@ -283,14 +338,24 @@
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
     "lint": "eslint src --ext ts",
+    "test:unit": "mocha",
+    "test:integration": "node ./out/test/runTest.js",
+    "test": "pnpm run compile && pnpm run test:unit && pnpm run test:integration",
     "package": "pnpm run compile && pnpm exec vsce package --no-dependencies",
-    "publish": "pnpm run compile && pnpm exec vsce publish"
+    "publish": "node scripts/publish-all.mjs",
+    "publish:vsce": "node scripts/publish-all.mjs vsce",
+    "publish:ovsx": "node scripts/publish-all.mjs ovsx"
   },
   "packageManager": "pnpm@10.33.3",
   "devDependencies": {
+    "@types/mocha": "^10.0.10",
     "@types/node": "^26.0.0",
     "@types/vscode": "^1.125.0",
+    "@vscode/test-electron": "^2.5.2",
     "@vscode/vsce": "^3.9.2",
+    "glob": "^11.1.0",
+    "mocha": "^11.7.6",
+    "ovsx": "^1.0.2",
     "typescript": "^6.0.3"
   },
   "repository": {

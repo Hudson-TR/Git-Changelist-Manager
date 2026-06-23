@@ -4,8 +4,10 @@ import { GitService } from './services/gitService';
 import { ConfigService } from './services/configService';
 import { CommitGuardService } from './services/commitGuardService';
 import { PatchService } from './services/patchService';
+import { DiffPreviewService } from './services/diffPreviewService';
 import { ChangeListTreeDataProvider } from './providers/treeDataProvider';
 import { ChangeListDragDropController } from './providers/dragDropController';
+import { StatusBarIntegration } from './integrations/statusBarIntegration';
 import { registerCommands } from './commands';
 import { VIEW_ID } from './utils/constants';
 import { logger } from './utils/logger';
@@ -44,12 +46,17 @@ export async function activate(context: vscode.ExtensionContext): Promise<void> 
     logger.debug('Initializing patch service...');
     const patchService = new PatchService(changeListManager, gitService);
 
+    // Create diff preview service (powers inline hover previews)
+    logger.debug('Creating diff preview service...');
+    const diffPreviewService = new DiffPreviewService(gitService, configService);
+
     // Create tree data provider
     logger.debug('Creating tree data provider...');
     const treeDataProvider = new ChangeListTreeDataProvider(
       changeListManager,
       gitService,
-      configService
+      configService,
+      diffPreviewService
     );
 
     // Create drag and drop controller
@@ -87,6 +94,15 @@ export async function activate(context: vscode.ExtensionContext): Promise<void> 
     );
     commitGuardService.initialize();
     logger.info('Commit guard service initialized');
+
+    // Initialize status bar integration (active changelist indicator)
+    logger.debug('Initializing status bar integration...');
+    const statusBarIntegration = new StatusBarIntegration(
+      changeListManager,
+      gitService,
+      configService
+    );
+    logger.info('Status bar integration initialized');
 
     // Subscribe to Git state changes
     logger.debug('Setting up event listeners...');
@@ -168,7 +184,9 @@ export async function activate(context: vscode.ExtensionContext): Promise<void> 
       changeListManager,
       gitService,
       commitGuardService,
-      treeDataProvider
+      treeDataProvider,
+      diffPreviewService,
+      statusBarIntegration
     );
 
     logger.info('Git Changelist Manager extension activated successfully!');

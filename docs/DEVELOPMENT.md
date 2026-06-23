@@ -642,16 +642,78 @@ Update:
 - [ ] Logs are informative
 - [ ] Documentation updated
 
-**Automated Tests (Future):**
+**Automated Tests:**
 
-When test infrastructure is added:
-- Write unit tests for service methods
-- Write integration tests for commands
-- Add regression tests for bug fixes
+The project ships an automated test suite (see the [Testing](#testing) section):
+- Add **unit tests** under `src/test/unit/` for pure logic (helpers, diff
+  preview, filter matching).
+- Add **integration tests** under `src/test/suite/` for command registration and
+  service behavior inside the VS Code host.
+- Add regression tests alongside bug fixes.
+- Run everything with `pnpm run test` before opening a PR.
 
 ---
 
 ## Testing
+
+The extension uses **Mocha** for unit tests and **`@vscode/test-electron`** for
+integration tests. All commands use **pnpm**.
+
+### Commands
+
+```bash
+pnpm run compile          # compile sources + tests to out/
+pnpm run test:unit        # fast unit tests (Mocha, no VS Code host)
+pnpm run test:integration # integration tests in a downloaded VS Code build
+pnpm run test             # compile + unit + integration (CI gate)
+```
+
+### Folder Structure
+
+```
+src/test/
+  runTest.ts                  # @vscode/test-electron launcher
+  suite/
+    index.ts                  # Mocha root for integration tests
+    extension.test.ts         # smoke: activation + command registration
+    changeListManager.test.ts # ChangeListManager with an in-memory Memento
+  unit/
+    setup.ts                  # mocha require hook stubbing the `vscode` module
+    vscode-mock.ts            # minimal `vscode` stub for unit tests
+    helpers.test.ts           # sortChangeLists, normalizePath, truncateLabel, ...
+    diffPreview.test.ts       # truncateDiffLines, isLikelyBinary, ...
+    filter.test.ts            # matchesChangelistFilter
+  fixtures/
+    sample-repo/              # workspace opened by the integration host
+```
+
+### How It Works
+
+- **Unit tests** run in plain Node. Because some utilities import `vscode`,
+  `src/test/unit/setup.ts` installs a module hook that resolves `require('vscode')`
+  to `vscode-mock.ts`. Mocha configuration lives in `.mocharc.json`.
+- **Integration tests** are compiled to `out/test/` and executed by
+  `runTest.ts`, which downloads (and caches under `.vscode-test/`) a VS Code
+  build, loads this extension, opens the `sample-repo` fixture, and runs the
+  Mocha suite in the extension host.
+
+### Adding a Test
+
+1. Create `*.test.ts` under `src/test/unit/` (pure logic) or `src/test/suite/`
+   (needs the VS Code API).
+2. `pnpm run compile` to emit `out/test/...`.
+3. `pnpm run test:unit` or `pnpm run test:integration`.
+
+### CI
+
+```bash
+pnpm install
+pnpm run test
+```
+
+`@vscode/test-electron` supports Windows, macOS, and Linux. On headless Linux CI,
+wrap the integration run with `xvfb-run`. The `.vscode-test/` download is safe to
+cache between CI runs. Keep `pnpm run test:unit` green as the primary fast gate.
 
 ### Manual Testing
 
@@ -663,36 +725,24 @@ When test infrastructure is added:
    - Set active list
    - Stage and commit
 
-2. **Edge Cases**
+2. **Enhanced UI (v1.2.0)**
+   - Hover a file to see the inline diff preview (modified, untracked, binary)
+   - Filter files (`Ctrl+Alt+F`), confirm matching lists expand and the count
+     message appears, then clear the filter
+   - Set a changelist color and confirm the icon and status bar reflect it
+   - Confirm the status bar shows the active list and switches on click
+
+3. **Edge Cases**
    - Empty lists
    - Many files (100+)
    - Large files
    - Rapid changes
    - External Git operations
 
-3. **Error Handling**
+4. **Error Handling**
    - Invalid list names
    - Deleting active list
    - Moving files from deleted lists
-
-### Automated Testing (Future)
-
-Not yet implemented. Planned:
-
-**Unit Tests:**
-```bash
-npm run test:unit
-```
-
-**Integration Tests:**
-```bash
-npm run test:integration
-```
-
-**E2E Tests:**
-```bash
-npm run test:e2e
-```
 
 ---
 
@@ -714,21 +764,56 @@ Output: `git-changelist-manager-0.0.1.vsix`
 code --install-extension git-changelist-manager-0.0.1.vsix
 ```
 
-### Publishing to Marketplace
+### Publishing to Both Marketplaces
+
+`pnpm run publish` packages once and uploads the same `.vsix` to **VS Code Marketplace**
+and **Open VSX** (Cursor, VSCodium).
 
 **Prerequisites:**
-- Publisher account on [Visual Studio Marketplace](https://marketplace.visualstudio.com/)
-- Personal Access Token (PAT) with `Marketplace (publish)` scope
 
-**Publish:**
+| Marketplace | Account | Auth |
+|-------------|---------|------|
+| VS Code | [Visual Studio Marketplace](https://marketplace.visualstudio.com/) publisher `Hudson-TR` | `VSCE_PAT` env var **or** `pnpm exec vsce login Hudson-TR` |
+| Open VSX | [open-vsx.org](https://open-vsx.org) namespace `Hudson-TR` + Publisher Agreement | `OVSX_PAT` env var |
+
+**One-time setup:**
 
 ```bash
-vsce publish
+# VS Code Marketplace (Azure DevOps PAT with Marketplace → Publish)
+pnpm exec vsce login Hudson-TR
+# or: export VSCE_PAT="..."   (Git Bash) / $env:VSCE_PAT = "..."   (PowerShell)
+
+# Open VSX (token from Settings → Access Tokens)
+pnpm exec ovsx create-namespace Hudson-TR -p "$OVSX_PAT"
 ```
 
-Or manually:
-1. Package: `npm run package`
-2. Upload VSIX to marketplace web UI
+**Publish both:**
+
+```bash
+# PowerShell
+$env:VSCE_PAT = "your-azure-devops-pat"   # skip if you used vsce login
+$env:OVSX_PAT = "your-open-vsx-token"
+pnpm run publish
+```
+
+**Publish one marketplace only:**
+
+```bash
+pnpm run publish:vsce   # VS Code Marketplace only
+pnpm run publish:ovsx   # Open VSX only
+```
+
+**Corporate SSL (`unable to get local issuer certificate` on Open VSX):**
+
+```powershell
+$env:NODE_TLS_REJECT_UNAUTHORIZED = "0"   # temporary, current session only
+pnpm run publish
+Remove-Item Env:NODE_TLS_REJECT_UNAUTHORIZED
+```
+
+Or set `NODE_EXTRA_CA_CERTS` to your company root CA `.pem` file.
+
+**Manual fallback:** `pnpm run package`, then upload the `.vsix` via each marketplace web UI.
 
 **Update Version:**
 

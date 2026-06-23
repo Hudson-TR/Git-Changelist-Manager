@@ -11,6 +11,7 @@ Comprehensive documentation of all features available in Git Changelist Manager 
 - [View Modes](#view-modes)
 - [Git Integration](#git-integration)
 - [Commit Guard](#commit-guard)
+- [Enhanced UI](#enhanced-ui)
 - [Status Bar Integration](#status-bar-integration)
 - [User Interface](#user-interface)
 - [Event-Driven Architecture](#event-driven-architecture)
@@ -639,6 +640,101 @@ VS Code allows staging specific lines of a file (hunks):
 
 ---
 
+## Enhanced UI
+
+The Enhanced UI features (completed in **v1.2.0**) make change lists easier to
+scan, review, and navigate.
+
+### Change List Colors
+
+Assign a color to any change list for quick visual identification.
+
+**How to use:**
+- Right-click a list → **Set Changelist Color**
+- Pick from **Red, Blue, Green, Yellow, Orange, Purple**, or **Default (None)** to clear
+
+**Behavior:**
+- The list icon is tinted with the selected VS Code theme color
+  (`charts.red`, `charts.blue`, …).
+- The active list's color is also reflected in the status bar indicator.
+- Colors are persisted in workspace state and survive reloads.
+- The read-only "Unversioned Files" list cannot be colored.
+
+### Change Count Badges
+
+Every change list shows a compact summary of its contents in the item
+description.
+
+**Format:** `N files (X M, Y A, Z D, …)`
+
+| Code | Meaning |
+|------|---------|
+| `M`  | Modified |
+| `A`  | Added |
+| `D`  | Deleted |
+| `R`  | Renamed |
+| `U`  | Untracked |
+
+**Example:** `5 files (2 M, 1 A, 1 D, 1 U)`
+
+Counts recompute automatically as files are modified, staged, moved, or
+committed. When a filter is active, the badge reflects the filtered counts.
+
+### Inline Diff Preview
+
+Hover over a file to preview its changes in a tooltip without opening it.
+
+**Behavior by status:**
+- **Modified / Added / Deleted / Renamed:** a syntax-highlighted `diff` from
+  `git diff` (working tree vs HEAD, falling back to the staged diff).
+- **Untracked:** the file's leading lines are read from disk and shown as a
+  synthetic "added" diff (the Git index is never mutated — no `git add -N`).
+- **Binary:** shows `Binary file (no preview)` (detected by extension or a NUL
+  byte in the first 8 KB).
+
+**Details:**
+- Previews are produced lazily via `resolveTreeItem` and cached (LRU) until the
+  next refresh.
+- Output is truncated to keep tooltips compact, with a `... (truncated)` marker.
+
+**Open changes on click:**
+- Clicking a file opens VS Code's native side-by-side comparison.
+- **Modified / Renamed / Conflict / Copied:** diff of the committed version
+  (HEAD) against the working tree. Renames compare against the original path.
+- **Untracked / Added:** the file is opened directly (no committed base to
+  compare against).
+- **Deleted:** the committed (HEAD) version is opened so you can see what was
+  removed.
+- If the Git API is unavailable, it falls back to opening the file.
+
+**Settings:**
+- `gitChangelistManager.ui.inlineDiffPreview.enabled` (default `true`)
+- `gitChangelistManager.ui.inlineDiffPreview.maxLines` (default `20`, range 5–50)
+
+### Search and Filter
+
+Filter files across **all** change lists at once.
+
+**How to use:**
+- Click the **filter** icon in the view title bar, or press
+  `Ctrl+Alt+F` / `Cmd+Alt+F`
+- Enter one or more space-separated terms
+- Clear via the **clear filter** icon (shown only while a filter is active)
+
+**Matching rules:**
+- Case-insensitive
+- Multi-term **AND** semantics — every term must match either the file name or
+  the relative path
+- An empty query clears the filter
+
+**Behavior:**
+- Lists with matches auto-expand; lists with no matches are hidden while
+  filtering (toggle with `gitChangelistManager.ui.filter.hideEmptyLists`).
+- A header message reports the match count, or that nothing matched.
+- Works in both list and tree view modes.
+
+---
+
 ## Status Bar Integration
 
 The status bar provides at-a-glance information about your active change list.
@@ -684,7 +780,7 @@ Status bar updates immediately when:
 **Location:** Left side of the status bar
 - **Priority:** 100 (near Git branch indicator)
 - **Alignment:** Left
-- **Color:** Uses default status bar colors
+- **Color:** Tinted with the active list's color when one is set; otherwise the default status bar color
 
 ---
 
@@ -919,7 +1015,7 @@ Git Changelist Manager is prepared for multi-root workspaces, though support is 
 
 ### Current Status
 
-**Version 0.0.1:**
+**Version 1.2.0:**
 - Single-root workspaces: Fully supported
 - Multi-root workspaces: Basic support (each root has isolated state)
 
@@ -957,32 +1053,38 @@ Planned for future versions:
 
 ## Feature Limitations
 
-### Known Limitations in v0.0.1
+### Known Limitations
 
 #### Commit Guard
 
 - **Cannot intercept commit button**: Guard only works with keybindings, not the native commit button in SCM view
 - **File-level only**: Cannot detect mixed hunks within a single file
 
-#### Patch Management
+#### File-Level Changelists
 
-- **Not implemented**: Patch application and generation are planned for v0.1.0
-- Placeholder commands exist but show "not yet implemented" messages
-
-#### Untracked Files
-
-- **No special handling**: Untracked files appear in the Default list
-- No dedicated "Unversioned Files" list yet
-
-#### Change List Colors
-
-- **Not supported**: Cannot assign custom colors to lists for visual identification
-- Planned for v0.1.0
+- A file belongs to **exactly one** change list at a time — the whole file is
+  assigned and staged together.
+- You **cannot** split the changes of a single file across two lists (e.g. put
+  one new function in "Lista A" and another new function in the same file in
+  "Lista B"). Moving the file to another list moves *all* of its current changes.
+- This differs from JetBrains IDEs, which support line/hunk-level changelists.
+  Per-hunk (partial) changelists are planned — see **Version 2.0.0 → Partial
+  (Hunk-Level) Changelists** in the [Roadmap](../README.md#roadmap).
+- Workaround today: separate the changes *in time* — stage and commit the file
+  from one list, then make and assign the next change.
 
 #### Change List Descriptions
 
-- **Not editable**: Lists have descriptions in data model, but no UI to edit them
-- Planned for future version
+- **Not editable from the UI**: Lists carry an optional description in the data model, but there is no dedicated UI to edit it yet
+
+#### Multi-Root Workspaces
+
+- State is tracked per workspace against the first repository; fully isolated per-folder state is a future enhancement
+
+> **Completed in v1.2.0:** Change List Colors, Change Count Badges, Inline Diff
+> Preview, Search and Filter, and Status Bar Integration are all implemented —
+> see the sections above. Patch management and the virtual "Unversioned Files"
+> list are also available.
 
 ### Performance Considerations
 
@@ -1018,9 +1120,11 @@ For repositories with 1000+ files:
 
 ## Summary
 
-Git Changelist Manager v0.0.1 delivers a robust foundation for change list management:
+Git Changelist Manager v1.2.0 delivers a robust foundation for change list management:
 
 - ✓ **Complete core functionality**: All essential features implemented
+- ✓ **Enhanced UI**: Colors, count badges, inline diff preview, search/filter, and status bar
+- ✓ **Automated tests**: Unit + integration suites guard against regressions
 - ✓ **Stable and tested**: Works across 7 different editors
 - ✓ **Non-invasive**: Extends Git without replacing it
 - ✓ **Persistent state**: Survives restarts and session changes

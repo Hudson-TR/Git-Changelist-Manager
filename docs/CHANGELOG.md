@@ -9,6 +9,49 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.2.0] - 2026-06-23
+
+Completes the **Version 1.0.0 — Enhanced UI** roadmap and adds an automated
+test suite.
+
+### Added
+
+- **Inline diff preview**: hover any file in a changelist to preview its changes
+  without opening it (syntax-highlighted diff; synthetic diff for untracked
+  files; `Binary file (no preview)` for binaries).
+- **Open changes on click**: clicking a file opens VS Code's native comparison
+  (diff) view — HEAD vs working tree for modified/renamed files, the committed
+  version for deletions, and the file directly for untracked/added files.
+- **Search and filter**: filter files across all changelists from the toolbar or
+  with `Ctrl+Alt+F` / `Cmd+Alt+F`. Case-insensitive, multi-term AND matching on
+  file name or path, with a clear-filter action and a results count message.
+- **Status bar integration**: shows the active changelist (bracketed, tinted with
+  the list color) and switches lists on click. Previously documented and
+  configurable but never implemented.
+- **Automated test suite**: unit tests (Mocha) for pure helpers, diff-preview and
+  filter logic, plus integration tests via `@vscode/test-electron` (extension
+  smoke + `ChangeListManager`). New scripts: `test:unit`, `test:integration`, `test`.
+- **Settings**: `ui.inlineDiffPreview.enabled`, `ui.inlineDiffPreview.maxLines`
+  (5–50), and `ui.filter.hideEmptyLists`.
+- **Commands**: `gitChangelistManager.filterChangelists` and
+  `gitChangelistManager.clearFilterChangelists`.
+
+### Changed
+
+- Documented the previously-shipped **changelist colors** and **status count
+  badges** (`M`/`A`/`D`/`R`/`U`) across the README and feature docs.
+- Roadmap: **Version 1.0.0 — Enhanced UI** marked complete (shipped in 1.2.0).
+- `DEVELOPMENT.md` testing section rewritten from "Future" to real instructions.
+
+### Fixed
+
+- Status bar was documented and configured (`showStatusBar`) but never wired up;
+  it is now implemented and disposed with the extension.
+- Inline hover preview now renders the diff: a pre-set file tooltip was
+  suppressing the lazy `resolveTreeItem` call that builds the preview.
+
+---
+
 ## [1.1.0] - 2026-06-23
 
 ### Added
@@ -168,8 +211,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Known Limitations
 
 - **Commit Guard**: Cannot intercept native commit button click (only keybindings work)
-- **Untracked Files**: No special handling yet (appear in Default list)
-- **Change List Colors**: Not yet supported (planned for v0.1.0)
+- **Untracked Files**: Surfaced in a virtual "Unversioned Files" list
+
+> **Note:** Change List Colors, Change Count Badges, Inline Diff Preview, Search
+> and Filter, and Status Bar Integration listed as limitations/planned here were
+> completed in **v1.2.0** — see the [1.2.0](#120---2026-06-23) entry above.
 
 ### Documentation
 

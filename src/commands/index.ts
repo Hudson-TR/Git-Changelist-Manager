@@ -5,8 +5,8 @@ import { GitService } from '../services/gitService';
 import { ConfigService } from '../services/configService';
 import { PatchService } from '../services/patchService';
 import { ChangeListTreeDataProvider } from '../providers/treeDataProvider';
-import { AnyTreeNode, ChangeListNode, FileNode } from '../types';
-import { COMMANDS } from '../utils/constants';
+import { AnyTreeNode, ChangeListNode, FileNode, GitFileStatus } from '../types';
+import { COMMANDS, CONTEXT_KEYS } from '../utils/constants';
 
 /**
  * Register all extension commands
@@ -134,7 +134,7 @@ export function registerCommands(
         const items = lists
           .filter(list => !list.isReadOnly)
           .map((list) => ({
-            label: list.name,
+            label: list.isActive ? `$(check) ${list.name}` : list.name,
             description: list.isActive ? '(Active)' : list.isDefault ? '(Default)' : undefined,
             listId: list.id,
           }));
@@ -499,6 +499,106 @@ export function registerCommands(
     vscode.commands.registerCommand(COMMANDS.REFRESH, async () => {
       await changeListManager.refresh();
       treeDataProvider.refresh();
+    })
+  );
+
+  // Filter Changelists (cross-changelist file search)
+  disposables.push(
+    vscode.commands.registerCommand(COMMANDS.FILTER_CHANGELISTS, async () => {
+      const current = treeDataProvider.getFilterQuery();
+      const query = await vscode.window.showInputBox({
+        prompt: 'Filter files across all changelists',
+        placeHolder: 'Type part of a file name or path (space-separated terms, all must match)',
+        value: current,
+      });
+
+      // Cancelled: leave the existing filter untouched.
+      if (query === undefined) {
+        return;
+      }
+
+      const trimmed = query.trim();
+      if (trimmed.length === 0) {
+        treeDataProvider.clearFilter();
+        await vscode.commands.executeCommand('setContext', CONTEXT_KEYS.FILTER_ACTIVE, false);
+        treeView.message = undefined;
+        return;
+      }
+
+      treeDataProvider.setFilterQuery(trimmed);
+      await vscode.commands.executeCommand('setContext', CONTEXT_KEYS.FILTER_ACTIVE, true);
+
+      const matches = await treeDataProvider.countFilterMatches();
+      treeView.message =
+        matches === 0
+          ? `No files match "${trimmed}"`
+          : `Filtering by "${trimmed}" — ${matches} file${matches === 1 ? '' : 's'}`;
+    })
+  );
+
+  // Clear the active filter
+  disposables.push(
+    vscode.commands.registerCommand(COMMANDS.CLEAR_FILTER, async () => {
+      treeDataProvider.clearFilter();
+      await vscode.commands.executeCommand('setContext', CONTEXT_KEYS.FILTER_ACTIVE, false);
+      treeView.message = undefined;
+    })
+  );
+
+  // Open a file's changes in the diff (comparison) view.
+  // Invoked when a file node is clicked in the tree.
+  disposables.push(
+    vscode.commands.registerCommand(COMMANDS.OPEN_FILE_DIFF, async (node?: FileNode) => {
+      if (!node || node.type !== 'file') {
+        return;
+      }
+
+      const change = node.change;
+      const uri = change.resourceUri;
+      const fileName = path.basename(uri.fsPath);
+      const status = change.gitStatus;
+
+      try {
+        // New content with no committed base — just open the file.
+        if (status === GitFileStatus.Untracked || status === GitFileStatus.Added) {
+          await vscode.commands.executeCommand('vscode.open', uri);
+          return;
+        }
+
+        // For renames, the committed (left) side lives at the original path.
+        const baseUri = change.originalUri ?? uri;
+        const headUri = gitService.getHeadUri(baseUri);
+
+        // Deleted in the working tree: show what was there (the HEAD version).
+        if (status === GitFileStatus.Deleted) {
+          if (headUri) {
+            await vscode.commands.executeCommand('vscode.open', headUri);
+          } else {
+            await vscode.commands.executeCommand('vscode.open', uri);
+          }
+          return;
+        }
+
+        // Modified / Renamed / Conflict / Copied: compare HEAD vs working tree.
+        if (headUri) {
+          await vscode.commands.executeCommand(
+            'vscode.diff',
+            headUri,
+            uri,
+            `${fileName} (Working Tree ↔ HEAD)`
+          );
+        } else {
+          // Git API unavailable — fall back to opening the file.
+          await vscode.commands.executeCommand('vscode.open', uri);
+        }
+      } catch (error) {
+        // Any failure (e.g. file not in HEAD) falls back to opening the file.
+        try {
+          await vscode.commands.executeCommand('vscode.open', uri);
+        } catch {
+          vscode.window.showErrorMessage(`Could not open changes for ${fileName}: ${error}`);
+        }
+      }
     })
   );
 

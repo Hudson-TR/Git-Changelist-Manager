@@ -23,6 +23,9 @@ export const COMMANDS = {
   REFRESH: 'gitChangelistManager.refresh',
   GUARDED_COMMIT: 'gitChangelistManager.guardedCommit',
   SET_LIST_COLOR: 'gitChangelistManager.setListColor',
+  FILTER_CHANGELISTS: 'gitChangelistManager.filterChangelists',
+  CLEAR_FILTER: 'gitChangelistManager.clearFilterChangelists',
+  OPEN_FILE_DIFF: 'gitChangelistManager.openFileDiff',
 } as const;
 
 /** Configuration keys */
@@ -36,6 +39,9 @@ export const CONFIG = {
   INTERCEPT_COMMIT: 'commitGuard.interceptCommit',
   AUTO_ASSIGN_STAGED: 'autoAssignStagedFiles',
   DEBUG_LOGGING: 'debug.enableLogging',
+  INLINE_DIFF_PREVIEW_ENABLED: 'ui.inlineDiffPreview.enabled',
+  INLINE_DIFF_PREVIEW_MAX_LINES: 'ui.inlineDiffPreview.maxLines',
+  FILTER_HIDE_EMPTY_LISTS: 'ui.filter.hideEmptyLists',
 } as const;
 
 /** Storage keys */
@@ -50,10 +56,26 @@ export const CONTEXT_KEYS = {
   LIST_IS_DEFAULT: 'listIsDefault',
   LIST_IS_ACTIVE: 'listIsActive',
   HAS_CHANGES: 'gitChangelistManager.hasChanges',
+  FILTER_ACTIVE: 'gitChangelistManager.filterActive',
 } as const;
 
 /** Default change list name */
 export const DEFAULT_LIST_NAME = 'Default';
+
+/** Default number of diff lines to show in an inline preview tooltip */
+export const DEFAULT_DIFF_PREVIEW_MAX_LINES = 20;
+
+/** Minimum allowed inline diff preview line count */
+export const MIN_DIFF_PREVIEW_MAX_LINES = 5;
+
+/** Maximum allowed inline diff preview line count */
+export const MAX_DIFF_PREVIEW_MAX_LINES = 50;
+
+/** Maximum number of cached diff previews kept in memory (LRU) */
+export const DIFF_PREVIEW_CACHE_SIZE = 50;
+
+/** Maximum label length for the status bar active-list indicator */
+export const STATUS_BAR_MAX_LABEL = 16;
 
 /** Unversioned files list ID */
 export const UNVERSIONED_LIST_ID = 'virtual-unversioned-files-list';

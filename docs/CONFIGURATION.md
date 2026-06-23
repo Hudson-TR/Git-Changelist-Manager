@@ -61,6 +61,9 @@ Quick reference table of all available settings:
 | `gitChangelistManager.commitGuard.interceptCommit` | `boolean` | `false` | Global | Intercept native commit command |
 | `gitChangelistManager.autoAssignStagedFiles` | `boolean` | `true` | Global | Auto-assign externally staged files |
 | `gitChangelistManager.debug.enableLogging` | `boolean` | `true` | Global | Enable verbose debug logging |
+| `gitChangelistManager.ui.inlineDiffPreview.enabled` | `boolean` | `true` | Global | Show inline diff preview on file hover |
+| `gitChangelistManager.ui.inlineDiffPreview.maxLines` | `number` | `20` | Global | Max diff lines in the hover preview (5–50) |
+| `gitChangelistManager.ui.filter.hideEmptyLists` | `boolean` | `true` | Global | Hide lists with no matches while filtering |
 
 ---
 
@@ -411,6 +414,74 @@ Enables verbose DEBUG-level logging to the "Git Changelist Manager" output chann
 3. Filter by search if needed
 
 See [DEBUGGING.md](DEBUGGING.md) for more details.
+
+---
+
+### Enhanced UI
+
+#### `gitChangelistManager.ui.inlineDiffPreview.enabled`
+
+**Type:** `boolean`
+**Default:** `true`
+**Scope:** Global
+**Restart Required:** No
+
+**Description:**
+Shows an inline diff preview in the tooltip when you hover over a file in a
+change list, so you can review what changed without opening the file.
+
+**Behavior:**
+- Modified/added/deleted/renamed files show a syntax-highlighted `diff`.
+- Untracked files show their leading lines as a synthetic "added" diff (the file
+  is read from disk; the Git index is never modified).
+- Binary files show `Binary file (no preview)`.
+- Previews are computed lazily on hover and cached until the next refresh.
+
+```json
+{
+  "gitChangelistManager.ui.inlineDiffPreview.enabled": false
+}
+```
+
+---
+
+#### `gitChangelistManager.ui.inlineDiffPreview.maxLines`
+
+**Type:** `number`
+**Default:** `20`
+**Minimum:** `5` · **Maximum:** `50`
+**Scope:** Global
+**Restart Required:** No
+
+**Description:**
+Maximum number of diff lines shown in the hover preview. Longer diffs are
+truncated with a `... (truncated)` marker. Values outside 5–50 are clamped.
+
+```json
+{
+  "gitChangelistManager.ui.inlineDiffPreview.maxLines": 30
+}
+```
+
+---
+
+#### `gitChangelistManager.ui.filter.hideEmptyLists`
+
+**Type:** `boolean`
+**Default:** `true`
+**Scope:** Global
+**Restart Required:** No
+
+**Description:**
+While a file filter is active (toolbar filter icon or `Ctrl+Alt+F` / `Cmd+Alt+F`),
+hides change lists that have no matching files so only relevant lists remain
+visible. When disabled, empty lists stay visible (collapsed) during filtering.
+
+```json
+{
+  "gitChangelistManager.ui.filter.hideEmptyLists": false
+}
+```
 
 ---
 
